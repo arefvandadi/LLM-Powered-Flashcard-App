@@ -1,0 +1,1 @@
+The project focuses on creating a Flashcard App that can use LLM to expand the words in the flashcards from videos on youtube or articles online selected by the user.
