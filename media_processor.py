@@ -2,6 +2,7 @@ import yt_dlp
 import os
 import ffmpeg
 from transformers import pipeline
+import textwrap
 
 class MediaProcessor:
     """
@@ -26,12 +27,14 @@ class MediaProcessor:
     """
 
     
-    def __init__(self, youtube_url: str=None, video_destination_folder: str = "./data/videos/", audio_destination_folder = "./data/audio/"):
+    def __init__(self, youtube_url: str=None, video_destination_folder: str = "./data/videos/", audio_destination_folder = "./data/audio/", text_destination_folder="./data/text/"):
         self.youtube_url = youtube_url
         self.video_destination_folder = video_destination_folder
         self.audio_destination_folder = audio_destination_folder
+        self.text_destination_folder = text_destination_folder
         self.youtube_video_title = None
         self.original_youtube_url = None
+        self.audio_wav_created = False
 
 
     def youtube_video_downloader(self):
@@ -72,9 +75,25 @@ class MediaProcessor:
         if self.youtube_video_title and self.original_youtube_url:
             video_file = ffmpeg.input(self.video_destination_folder + self.youtube_video_title + ".mp4")
             video_file.output(self.audio_destination_folder + self.youtube_video_title + "_audio.wav", acodec="pcm_s16le").run()
+            self.audio_wav_created = True
+        else:
+            print("No youtube video is available. Please make sure a video is downloaded first using youtube_video_downloader method")
 
 
-# SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
-# youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
-# youtube_handler.youtube_video_downloader()
-# youtube_handler.audio_extractor()
+    def transcriber(self):
+        if self.audio_wav_created:
+            pipe = pipeline("automatic-speech-recognition", model="openai/whisper-small")
+            output = pipe(self.audio_destination_folder + self.youtube_video_title + "_audio.wav")
+            transcription_text = output["text"]
+            wrapped_transcription = textwrap.fill(transcription_text, width=80)
+
+            with open(self.text_destination_folder + self.youtube_video_title + "_transcription.txt", "w") as file:
+                file.write(wrapped_transcription)
+        else:
+            print("No audio file is available. Make sure audio_extractor is run before runnig this method")
+
+SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
+youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
+youtube_handler.youtube_video_downloader()
+youtube_handler.audio_extractor()
+youtube_handler.transcriber()
