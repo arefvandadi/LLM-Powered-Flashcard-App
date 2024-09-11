@@ -1,5 +1,7 @@
 import yt_dlp
 import os
+import ffmpeg
+from transformers import pipeline
 
 class MediaProcessor:
     """
@@ -24,23 +26,18 @@ class MediaProcessor:
     """
 
     
-    def __init__(self, youtube_url: str=None, video_destination_folder: str = "./data/videos/"):
+    def __init__(self, youtube_url: str=None, video_destination_folder: str = "./data/videos/", audio_destination_folder = "./data/audio/"):
         self.youtube_url = youtube_url
         self.video_destination_folder = video_destination_folder
+        self.audio_destination_folder = audio_destination_folder
+        self.youtube_video_title = None
+        self.original_youtube_url = None
 
 
     def youtube_video_downloader(self):
         """
-        Downloads a video from a YouTube url.
-
-        Parameters:
-        -----------
-        youtube_url : str
-            A required string of YouTube video URL to be downloaded.
-        
-        video_destination_folder : str, optional
-            The directory where the downloaded videos will be stored. Defaults to `./data/videos` 
-            if no path is provided.
+        Downloads a video from a YouTube url
+        Updates "youtube_video_title" and "original_youtube_url" class attributes
 
         Returns:
         --------
@@ -60,13 +57,24 @@ class MediaProcessor:
             with yt_dlp.YoutubeDL(yt_options) as ydl:
                 #download function below takes a list of urls
                 info_dict = ydl.extract_info(self.youtube_url, download=True)
-                print(info_dict.get("title"))
-                print(info_dict.get("original_url"))
+                
+                # Updates "youtube_video_title" and "original_youtube_url" class attributes 
+                self.youtube_video_title = info_dict.get("title")
+                self.original_youtube_url = info_dict.get("original_url")
+                # print(info_dict.get("title"))
+                # print(info_dict.get("original_url"))
         else:
             print("No Youtube URL was provided in MediaProcessor class")
 
+
+    def audio_extractor(self):
+        # This if statement ensures that the downloader was run and youtube video was downloaded and available
+        if self.youtube_video_title and self.original_youtube_url:
+            video_file = ffmpeg.input(self.video_destination_folder + self.youtube_video_title + ".mp4")
+            video_file.output(self.audio_destination_folder + self.youtube_video_title + "_audio.wav", acodec="pcm_s16le").run()
 
 
 # SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
 # youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
 # youtube_handler.youtube_video_downloader()
+# youtube_handler.audio_extractor()
