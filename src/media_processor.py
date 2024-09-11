@@ -137,3 +137,27 @@ class MediaProcessor:
 # youtube_handler.audio_extractor()
 # youtube_handler.transcriber()
 # print(youtube_handler.get_gpt_response())
+
+
+#################### Use a Free LLM to Analyze the Text and Extract Words ################################
+# with open("./data/text/transcription.txt", "r") as file:
+#     context = file.read()
+# print(context)
+
+## LLama2-CHAT-7b --> Seem to need login and Huggingface Credentials
+# llama_textgenerator = pipeline("text-generation", model="meta-llama/Llama-2-7b-chat-hf")
+
+# messages = [
+#     {"role": "user", "content": "How many countries are in the word?"},
+# ]
+# response = llama_textgenerator(messages)
+# print(response)
+
+## GPT2 --> Seem to just generate similar sentences to what the question is.
+# gpt_textgenerator = pipeline("text-generation", model="openai-community/gpt2")
+# response = gpt_textgenerator("Is there a world in the following text that is How many countries are in the world?")
+
+## ROBERTA --> You need to give it a context and it is not that good at answering them
+# questions_answering = pipeline("question-answering", model="deepset/roberta-base-squad2")
+# response = questions_answering(question="How many words are in the context provided", context=context)
+# print(response)
