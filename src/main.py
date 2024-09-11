@@ -6,8 +6,7 @@ import textwrap
 from openai import OpenAI
 import os
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY_1")
-PATH_for_VIDEOS = "./data/videos/"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
 ##################### Download Youtube Videos to Local Drive ###############################
@@ -15,7 +14,7 @@ PATH_for_VIDEOS = "./data/videos/"
 # YOUTUBE_LINK = "https://youtu.be/rqTl-livoRo"
 # SHORTER_YOUTUBE_LINK = "https://youtu.be/65ya2V7Gi74"
 
-# youtube_video_downloader([SHORTER_YOUTUBE_LINK], PATH_for_VIDEOS)
+# youtube_video_downloader(SHORTER_YOUTUBE_LINK)
 
 
 ##################### Extracting Audio from Downloaded Videos ###############################
