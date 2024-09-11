@@ -36,14 +36,7 @@ class MediaProcessor:
         self.original_youtube_url = None
         self.audio_wav_created = False
         self.transcription = None
-        self.gpt_prompt_template = f"Please investigate the following 'context' and create a list of \
-            English words in the context provided that \
-                is good for an intermediate english as a second language learner, \
-                    to practice and improve his/her vocabulaory:\
-        \n\ncontext = {context}\
-        \n\nNotice there is no need for explaining the meaning of the word. The response should only include the words\
-          in the format of a python list. No explanations before or after the python list.\
-        \n\n Also there is no need to output words = [], remove the 'words =' and only output the python list"
+        self.gpt_prompt_template = None
 
 
     def youtube_video_downloader(self):
@@ -89,6 +82,16 @@ class MediaProcessor:
             print("No youtube video is available. Please make sure a video is downloaded first using youtube_video_downloader method")
 
 
+    def _generate_gpt_prompt_template(self):
+        return f"Please investigate the following 'context' and create a list of \
+            English words in the context provided that \
+                is good for an intermediate english as a second language learner, \
+                    to practice and improve his/her vocabulaory:\
+        \n\ncontext = {self.transcription}\
+        \n\nNotice there is no need for explaining the meaning of the word. The response should only include the words\
+          in the format of a python list. No explanations before or after the python list.\
+        \n\n Also there is no need to output words = [], remove the 'words =' and only output the python list"
+
     def transcriber(self):
         if self.audio_wav_created:
             pipe = pipeline("automatic-speech-recognition", model="openai/whisper-small")
@@ -96,6 +99,9 @@ class MediaProcessor:
             transcription_text = output["text"]
             wrapped_transcription = textwrap.fill(transcription_text, width=80)
             self.transcription = wrapped_transcription
+            
+            # following line updates self.gpt_prompt_template attribute with the updated self.transcription from previous line 
+            self.gpt_prompt_template = self._generate_gpt_prompt_template()
 
             with open(self.text_destination_folder + self.youtube_video_title + "_transcription.txt", "w") as file:
                 file.write(self.transcription)
@@ -103,10 +109,10 @@ class MediaProcessor:
             print("No audio file is available. Make sure audio_extractor is run before runnig this method")
 
 
-    
 
-# SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
-# youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
-# youtube_handler.youtube_video_downloader()
-# youtube_handler.audio_extractor()
-# youtube_handler.transcriber()
+
+SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
+youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
+youtube_handler.youtube_video_downloader()
+youtube_handler.audio_extractor()
+youtube_handler.transcriber()
