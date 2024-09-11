@@ -7,6 +7,7 @@ from openai import OpenAI
 import os
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY_1")
+PATH_for_VIDEOS = "./data/videos/"
 
 
 ##################### Download Youtube Videos to Local Drive ###############################
@@ -14,14 +15,13 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY_1")
 # YOUTUBE_LINK = "https://youtu.be/rqTl-livoRo"
 # SHORTER_YOUTUBE_LINK = "https://youtu.be/65ya2V7Gi74"
 
-
-# youtube_video_downloader([SHORTER_YOUTUBE_LINK])
+# youtube_video_downloader([SHORTER_YOUTUBE_LINK], PATH_for_VIDEOS)
 
 
 ##################### Extracting Audio from Downloaded Videos ###############################
-# video_file = ffmpeg.input("./data/videos/Theater of Politics.mp4")
-# # video_file.output("./data/audio/audio.mp3", acodec="mp3").run()
-# video_file.output("./data/audio/audio.wav", acodec="pcm_s16le").run()
+video_file = ffmpeg.input("./data/videos/Theater of Politics.mp4")
+# video_file.output("./data/audio/audio.mp3", acodec="mp3").run()
+video_file.output("./data/audio/audio.wav", acodec="pcm_s16le").run()
 
 
 ##################### Use Speech Recognition LLM Models to Create Transcriptions ###############################
