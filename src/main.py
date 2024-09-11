@@ -1,13 +1,18 @@
 # import yt_dlp
 from media_processor import MediaProcessor
-import ffmpeg
-from transformers import pipeline
-import textwrap
-from openai import OpenAI
-import os
+# import ffmpeg
+# from transformers import pipeline
+# import textwrap
+# from openai import OpenAI
+# import os
 
 # OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
+SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
+
+youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
+words_list = youtube_handler.extract_words_from_youtube()
+print(words_list)
 
 ##################### Download Youtube Videos to Local Drive ###############################
 
@@ -58,28 +63,28 @@ import os
 # print(response)
 
 ######################### Use GPT4 API to Analyze the Text and Extract Words ############################
-with open("./data/text/transcription.txt", "r") as file:
-    context = file.read()
+# with open("./data/text/transcription.txt", "r") as file:
+#     context = file.read()
 
-content = f"Please investigate the following context and create a list of English words in the context provided that \
-     that is good for an intermediate english as a second language learner to practice to improve his/her vocabulaory:\
-        \n\ncontext = {context}\
-        \n\nNotice there is no need for explaining the meaning of the word. The response should only include the words\
-          in the format of a python list. No explanations before or after the python list.\
-        \n\n Also there is no need to output words = [], remove the 'words =' and only output the python list"
+# content = f"Please investigate the following context and create a list of English words in the context provided that \
+#      that is good for an intermediate english as a second language learner to practice to improve his/her vocabulaory:\
+#         \n\ncontext = {context}\
+#         \n\nNotice there is no need for explaining the meaning of the word. The response should only include the words\
+#           in the format of a python list. No explanations before or after the python list.\
+#         \n\n Also there is no need to output words = [], remove the 'words =' and only output the python list"
 
-def get_gpt_response(content: str = content, api_key=OPENAI_API_KEY):
-    client = OpenAI(api_key=api_key)
-    completion = client.chat.completions.create(
-    # model="gpt-4o",
-    model="gpt-4o-mini",
-    messages=[
-        {"role": "user", "content": content}
-    ]
-    )
-    return completion.choices[0].message.content
+# def get_gpt_response(content: str = content, api_key=OPENAI_API_KEY):
+#     client = OpenAI(api_key=api_key)
+#     completion = client.chat.completions.create(
+#     # model="gpt-4o",
+#     model="gpt-4o-mini",
+#     messages=[
+#         {"role": "user", "content": content}
+#     ]
+#     )
+#     return completion.choices[0].message.content
 
-print(get_gpt_response(content))
+# print(get_gpt_response(content))
 
 
 

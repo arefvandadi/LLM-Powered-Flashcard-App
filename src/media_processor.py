@@ -123,6 +123,13 @@ class MediaProcessor:
         )
         return completion.choices[0].message.content
 
+    
+    def extract_words_from_youtube(self):
+        self.youtube_video_downloader()
+        self.audio_extractor()
+        self.transcriber()
+        word_list = self.get_gpt_response()
+        return word_list
 
 # SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
 # youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
