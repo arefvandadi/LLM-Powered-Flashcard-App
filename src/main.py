@@ -1,5 +1,5 @@
 # import yt_dlp
-from youtube_downloader import youtube_video_downloader
+from media_processor import MediaProcessor
 import ffmpeg
 from transformers import pipeline
 import textwrap
@@ -13,8 +13,10 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # YOUTUBE_LINK = "https://youtu.be/rqTl-livoRo"
 # SHORTER_YOUTUBE_LINK = "https://youtu.be/65ya2V7Gi74"
+# SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
 
-# youtube_video_downloader(SHORTER_YOUTUBE_LINK)
+# youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
+# youtube_handler.youtube_video_downloader()
 
 
 ##################### Extracting Audio from Downloaded Videos ###############################
