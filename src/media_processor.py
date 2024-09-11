@@ -111,7 +111,7 @@ class MediaProcessor:
     Subsequently, create a python list of only the words in the Category A: Advanced. 
     I want only the python list in the output and nothing else. 
     I should be able to use eval() function on the output with no error.
-    As an example, the final output should like this with no leading and trailing text: ["subsequent", "conversion", "Dice"]
+    As an example, the final output should like this (feel free to add as many words in the list as long as they are in Category A: Advanced) with no leading and trailing text: ["subsequent", "conversion", "Dice"]
 
 
     <Start of context> 
