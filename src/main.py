@@ -6,7 +6,7 @@ import textwrap
 from openai import OpenAI
 import os
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
 ##################### Download Youtube Videos to Local Drive ###############################
@@ -20,9 +20,9 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
 ##################### Extracting Audio from Downloaded Videos ###############################
-video_file = ffmpeg.input("./data/videos/Theater of Politics.mp4")
-# video_file.output("./data/audio/audio.mp3", acodec="mp3").run()
-video_file.output("./data/audio/audio.wav", acodec="pcm_s16le").run()
+# video_file = ffmpeg.input("./data/videos/Theater of Politics.mp4")
+# # video_file.output("./data/audio/audio.mp3", acodec="mp3").run()
+# video_file.output("./data/audio/audio.wav", acodec="pcm_s16le").run()
 
 
 ##################### Use Speech Recognition LLM Models to Create Transcriptions ###############################

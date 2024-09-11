@@ -3,6 +3,7 @@ import os
 import ffmpeg
 from transformers import pipeline
 import textwrap
+from openai import OpenAI
 
 class MediaProcessor:
     """
@@ -37,6 +38,7 @@ class MediaProcessor:
         self.audio_wav_created = False
         self.transcription = None
         self.gpt_prompt_template = None
+        self.gpt_model = "gpt-4o-mini"
 
 
     def youtube_video_downloader(self):
@@ -109,10 +111,22 @@ class MediaProcessor:
             print("No audio file is available. Make sure audio_extractor is run before runnig this method")
 
 
+    def get_gpt_response(self):
+        api_key = os.getenv("OPENAI_API_KEY")
+        client = OpenAI(api_key=api_key)
+        completion = client.chat.completions.create(
+        # model="gpt-4o",
+        model=self.gpt_model,
+        messages=[
+            {"role": "user", "content": self.gpt_prompt_template}
+        ]
+        )
+        return completion.choices[0].message.content
 
 
-SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
-youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
-youtube_handler.youtube_video_downloader()
-youtube_handler.audio_extractor()
-youtube_handler.transcriber()
+# SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
+# youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
+# youtube_handler.youtube_video_downloader()
+# youtube_handler.audio_extractor()
+# youtube_handler.transcriber()
+# print(youtube_handler.get_gpt_response())
