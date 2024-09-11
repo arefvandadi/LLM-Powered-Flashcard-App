@@ -102,15 +102,23 @@ class MediaProcessor:
         str
             A prompt template that includes the transcription from the video from youtube
         """
-        return f"Please investigate the following 'context' and create a list of \
-            English words in the context provided that \
-                is good for an intermediate english as a second language learner, \
-                    to practice and improve his/her vocabulaory:\
-        \n\ncontext = {self.transcription}\
-        \n\nNotice there is no need for explaining the meaning of the word. The response should only include the words\
-          in the format of a python list. No explanations before or after the python list.\
-        \n\n I want to be able to apply python eval() function directly on the output to convert it to a python list\
-        Make sure the output is formatted in a way that eval() can be directly applied on the output"
+        return f"""
+    Please investigate the 'context' provided below and categorize the words used in the context into three categories based on their difficulty for an English as Second Language (ESL) Learner:
+        - Category A: Advanced
+        - Category B: Intermediate
+        - Category C: Beginner
+    
+    Subsequently, create a python list of only the words in the Category A: Advanced. 
+    I want only the python list in the output and nothing else. 
+    I should be able to use eval() function on the output with no error.
+    As an example, the final output should like this with no leading and trailing text: ["subsequent", "conversion", "Dice"]
+
+
+    <Start of context> 
+    {self.transcription}
+    <END of context>
+
+    """
 
     def transcriber(self):
         """
@@ -153,6 +161,7 @@ class MediaProcessor:
             {"role": "user", "content": self.gpt_prompt_template}
         ]
         )
+        # return completion.choices[0].message.content
         return eval(completion.choices[0].message.content)
 
     
