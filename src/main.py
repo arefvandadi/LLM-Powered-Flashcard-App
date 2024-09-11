@@ -1,4 +1,5 @@
-import yt_dlp
+# import yt_dlp
+from youtube_downloader import youtube_video_downloader
 import ffmpeg
 from transformers import pipeline
 import textwrap
@@ -7,21 +8,14 @@ import os
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY_1")
 
+
 ##################### Download Youtube Videos to Local Drive ###############################
 
 # YOUTUBE_LINK = "https://youtu.be/rqTl-livoRo"
 # SHORTER_YOUTUBE_LINK = "https://youtu.be/65ya2V7Gi74"
 
 
-# # Specifies the output folder for the yt-dlp video downloads
-# yt_options = {
-#     'outtmpl':"./data/videos/%(title)s.%(ext)s",
-#     'merge_output_format': 'mp4'
-# }
-
-# with yt_dlp.YoutubeDL(yt_options) as ydl:
-#     #download function below takes a list of urls
-#     ydl.download([SHORTER_YOUTUBE_LINK])
+# youtube_video_downloader([SHORTER_YOUTUBE_LINK])
 
 
 ##################### Extracting Audio from Downloaded Videos ###############################
