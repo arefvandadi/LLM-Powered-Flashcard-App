@@ -28,33 +28,55 @@ words_repo = pd.read_csv("./data/words/words_to_learn.csv")
 # print(words_repo.iloc[0,1])
 # print(words_repo.columns[0])
 
+###################### RWrong Button Functionality ######################
+def wrong_button_functionality(event=None):
+    # Bring Show Answer Button back on
+    showanswer_button.grid(row=1, column=2, columnspan=2)
+    
+    # Hide Right and Wrong Buttons
+    wrong_button.grid_forget()
+    right_button.grid_forget()
 
-###################### Pick a Word from Repository ######################
-############# Pick a Word Function - Also Flips the Card after Three Seconds ###########
-# def pick_a_word():
-#     global random_row
-#     global list_of_words
-#     random_row = random.randint(0, len(list_of_words))
-#     random_word = list_of_words.iloc[random_row]["French"]
-#     canvas.itemconfig(canvas_word, text=random_word)
+    canvas.itemconfig(canvas_word, text=f"{words_repo.iloc[0,0]}", font=("Arial",30, "bold"))
+    canvas.itemconfig(canvas_definition, text=f"")
 
-#     canvas.itemconfig(canvas_image, image=front_img) 
-#     canvas.itemconfig(canvas_language, text="French")
+    window.unbind("<space>")
+    window.unbind("<m>")
+    window.bind("<space>", show_answer)
 
-#     global after_running
-#     after_running = window.after(3000, flip_canvas_image_after_delay)
 
-def show_answer():
-    # Hide the current button
+###################### Right Button Functionality ######################
+def right_button_functionality(event=None):
+    # Bring Show Answer Button back on
+    showanswer_button.grid(row=1, column=2, columnspan=2)
+    
+    # Hide Right and Wrong Buttons
+    wrong_button.grid_forget()
+    right_button.grid_forget()
+
+    canvas.itemconfig(canvas_word, text=f"{words_repo.iloc[0,0]}", font=("Arial",30, "bold"))
+    canvas.itemconfig(canvas_definition, text=f"")
+
+    window.unbind("<space>")
+    window.unbind("<m>")
+    window.bind("<space>", show_answer)
+
+###################### Show Answer Function ######################
+def show_answer(event=None):
+    # Hide the Show Answer Button
     showanswer_button.grid_forget()
     
-    # Create a new button
+    # Bring Right and Wrong Buttons back on
     wrong_button.grid(row=1, column=2)
     right_button.grid(row=1, column=3)
 
     #
-    # canvas.itemconfig(canvas_word, text=f"{words_repo.iloc[0,1]}", font=("Arial",35, "bold"))
+    # canvas.itemconfig(canvas_word, text=f"{words_repo.iloc[0,1]}", font=("Arial",30, "bold"))
     canvas.itemconfig(canvas_definition, text=f"{words_repo.iloc[0,1]}")
+
+    window.unbind("<space>")
+    window.bind("<space>", right_button_functionality)
+    window.bind("<m>", wrong_button_functionality)
 
 ###################### Main Window #######################
 window = Tk()
@@ -71,17 +93,17 @@ canvas_definition = canvas.create_text(400, 150, text=f"", font=("Arial",15), wi
 canvas_word = canvas.create_text(400, 50, text=f"{words_repo.iloc[0,0]}", font=("Arial",30, "bold"), width=500)
 canvas.grid(row=0, column=0, columnspan=6)
 
-# Right and Wrong Buttons
+# Wrong Button
 wrong_img = PhotoImage(file="./images/wrong.png")
-wrong_button = Button(window, image=wrong_img, bg=BACKGROUND_COLOR, highlightthickness=0)
+wrong_button = Button(window, image=wrong_img, bg=BACKGROUND_COLOR, highlightthickness=0, command=wrong_button_functionality)
 # wrong_button.grid(row=1, column=1)
 
+# Right Button
 right_img = PhotoImage(file="./images/right.png")
-right_button = Button(window, image=right_img, bg=BACKGROUND_COLOR, highlightthickness=0)
+right_button = Button(window, image=right_img, bg=BACKGROUND_COLOR, highlightthickness=0, command=right_button_functionality)
 # right_button.grid(row=1, column=4)
 
-# showanswer_img = PhotoImage(file="./images/right.png")
-# showanswer_button = Button(window, image=showanswer_img, bg=BACKGROUND_COLOR, highlightthickness=0)
+# Show Answer Button
 showanswer_button = Button(window, text="show answer",bg=BACKGROUND_COLOR, highlightthickness=0, command=show_answer)
 showanswer_button.config(
     width=30, height=3, 
@@ -89,7 +111,7 @@ showanswer_button.config(
     background=SHOW_ANSWER_BACKGROUND_COLOR, 
     activebackground=SHOW_ANSWER_BACKGROUND_COLOR)
 showanswer_button.grid(row=1, column=2, columnspan=2)
-
+window.bind("<space>",show_answer)
 
 
 
