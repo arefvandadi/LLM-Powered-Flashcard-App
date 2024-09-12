@@ -31,7 +31,14 @@ canvas = Canvas(width=800, height=526, bg=BACKGROUND_COLOR, highlightthickness=0
 canvas_image = canvas.create_image(400, 263, image=front_img)
 canvas.grid(row=0, column=0, columnspan=3)
 
+# Right and Wrong Buttons
+wrong_img = PhotoImage(file="./images/wrong.png")
+wrong_button = Button(window, image=wrong_img, bg=BACKGROUND_COLOR, highlightthickness=0)
+wrong_button.grid(row=1, column=0)
 
+right_img = PhotoImage(file="./images/right.png")
+right_button = Button(window, image=right_img, bg=BACKGROUND_COLOR, highlightthickness=0)
+right_button.grid(row=1, column=2)
 
 
 
