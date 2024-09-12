@@ -17,6 +17,7 @@ class MediaProcessor:
 
     Attributes:
         youtube_link (str): The URL of the YouTube video to be processed.
+        delete_media (bool, optional): Deletes Downloaded/Extracted Video, Audio and Text after Words Repo is updated. Set to False to Keep the Media.
         video_destination_folder (str, optional): The path where the downloaded video is stored.
         audio_destination_folder (str, optional): The path where the extracted audio is stored.
         text_destination_folder (str, optional): The path where the extracted text (transcription) is stored.
@@ -30,8 +31,9 @@ class MediaProcessor:
     """
 
     
-    def __init__(self, youtube_url: str=None, video_destination_folder: str = "./data/videos/", audio_destination_folder = "./data/audio/", text_destination_folder="./data/text/"):
+    def __init__(self, youtube_url: str=None, delete_media: bool=True, video_destination_folder: str = "./data/videos/", audio_destination_folder = "./data/audio/", text_destination_folder="./data/text/"):
         self.youtube_url = youtube_url
+        self.delete_media = delete_media
         self.video_destination_folder = video_destination_folder
         self.audio_destination_folder = audio_destination_folder
         self.text_destination_folder = text_destination_folder
@@ -44,6 +46,7 @@ class MediaProcessor:
         self.word_list = None
         self.definition_list = None
         self.gpt_definition_prompt_template = None
+
 
 
     def youtube_video_downloader(self):
@@ -217,6 +220,12 @@ class MediaProcessor:
         return self.definition_list
 
 
+    def media_files_deleter(self):
+        if self.delete_media:
+            os.remove(self.video_destination_folder + self.youtube_video_title + ".mp4")
+            os.remove(self.audio_destination_folder + self.youtube_video_title + "_audio.wav")
+            os.remove(self.text_destination_folder + self.youtube_video_title + "_transcription.txt")
+
     
     def extract_words_from_youtube_pipeline(self):
         """
@@ -232,6 +241,7 @@ class MediaProcessor:
         self.transcriber()
         list_of_words = self.words_finder_gpt()
         list_of_definitons = self.definition_finder_gpt()
+        self.media_files_deleter()
         return list_of_words, list_of_definitons
 
 # SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
