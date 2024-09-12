@@ -24,9 +24,12 @@ window.title("FlashMind")
 window.config(padx=50, pady=50)
 window.config(bg=BACKGROUND_COLOR)
 
-
-
-
+# Main Canvas for showing words and meanings in the App
+front_img = PhotoImage(file="./images/card_front.png")
+back_img = PhotoImage(file="./images/card_back.png")
+canvas = Canvas(width=800, height=526, bg=BACKGROUND_COLOR, highlightthickness=0)
+canvas_image = canvas.create_image(400, 263, image=front_img)
+canvas.grid(row=0, column=0, columnspan=3)
 
 
 
