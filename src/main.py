@@ -1,20 +1,41 @@
 from media_processor import MediaProcessor
 from words_saver import words_saver
+from tkinter import * 
+
+BACKGROUND_COLOR = "#B1DDC6"
+
+#######################################################################################
+
+# # SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
+# SHORTER_YOUTUBE_LINK = "https://youtu.be/Sbo8R-v7s98"
+
+# youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
+# words_list, definition_list = youtube_handler.extract_words_from_youtube_pipeline()
+# print(words_list)
+# print(definition_list)
+# # print(type(words_list))
+
+# words_saver(words_list, definition_list)
+
+#######################################################################################
+
+window = Tk()
+window.title("FlashMind")
+window.config(padx=50, pady=50)
+window.config(bg=BACKGROUND_COLOR)
 
 
-# SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
-SHORTER_YOUTUBE_LINK = "https://youtu.be/Sbo8R-v7s98"
-
-youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
-words_list, definition_list = youtube_handler.extract_words_from_youtube_pipeline()
-print(words_list)
-print(definition_list)
-# print(type(words_list))
-
-words_saver(words_list, definition_list)
 
 
 
 
+
+
+
+
+
+
+
+window.mainloop()
 
 
