@@ -1,4 +1,6 @@
 from tkinter import Canvas, PhotoImage
+import pandas as pd 
+import random
 
 CARD_FRONT_IMAGE_PATH = "./data/images/card_front.png"
 CARD_BACK_IMAGE_PATH = "./data/images/card_back.png"
@@ -29,9 +31,11 @@ class CanvasManager:
         self.canvas_word = None
         self.front_img = PhotoImage(file="./data/images/card_front.png")
         self.back_img = PhotoImage(file="./data/images/card_back.png")
+        self.word_text = None
+        self.definition_text = None
 
-    def create_canvas(self, definition_text, word_text):
-        
+    def create_canvas(self):
+        self.word_retriver()
         self.canvas = Canvas(width=CANVAS_WIDTH, 
                         height=CANVAS_HEIGHT, 
                         bg=BACKGROUND_COLOR, 
@@ -41,17 +45,26 @@ class CanvasManager:
                                            image=self.front_img)
         self.canvas_definition = self.canvas.create_text(self._DEFINITION_POSITION[0], 
                                                CANVAS_DEFINITION_POSITION[1], 
-                                               text=definition_text, 
+                                               text="", 
                                                font=CANVAS_DEFINITION_FONT, 
                                                width=CANVAS_DEFINITION_WIDTH)
         self.canvas_word = self.canvas.create_text(CANVAS_WORD_POSITION[0], 
                                          CANVAS_WORD_POSITION[1], 
-                                         text=word_text, 
+                                         text=self.word_text, 
                                          font=CANVAS_WORD_FONT, 
                                          width=CANVAS_WORD_WIDTH)
         self.canvas.grid(row=CANVAS_GRID_POSITION[0], 
                     column=CANVAS_GRID_POSITION[1], 
                     columnspan=CANVAS_GRID_POSITION[2])
+    
+
+    def word_retriver(self):
+        word_repo = pd.read_csv("./data/words/words_to_learn.csv")
+        word_repo_length = word_repo.shape[0]
+        random_row = random.randint(0, word_repo_length-1)
+        self.word_text = word_repo.iloc[random_row,1]
+        self.definition_text = word_repo.iloc[random_row,2]
+
 
 
 # # Main Canvas for showing words and meanings in the App
