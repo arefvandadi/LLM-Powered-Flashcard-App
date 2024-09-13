@@ -23,6 +23,8 @@ CANVAS_GRID_POSITION = (0, 0, 6)
 
 class CanvasManager:
     def __init__(self):
+        self.canvas = None
+        self.canvas_image = None
         self.canvas_definition = None
         self.canvas_word = None
         self.front_img = PhotoImage(file="./data/images/card_front.png")
@@ -30,24 +32,24 @@ class CanvasManager:
 
     def create_canvas(self, definition_text, word_text):
         
-        canvas = Canvas(width=CANVAS_WIDTH, 
+        self.canvas = Canvas(width=CANVAS_WIDTH, 
                         height=CANVAS_HEIGHT, 
                         bg=BACKGROUND_COLOR, 
                         highlightthickness=CANVAS_Highlight_Thickness)
-        canvas_image = canvas.create_image(CANVAS_IMAGE_SIZE[0], 
+        self.canvas_image = self.canvas.create_image(CANVAS_IMAGE_SIZE[0], 
                                            CANVAS_IMAGE_SIZE[1], 
                                            image=self.front_img)
-        self.canvas_definition = canvas.create_text(CANVAS_DEFINITION_POSITION[0], 
+        self.canvas_definition = self.canvas.create_text(self._DEFINITION_POSITION[0], 
                                                CANVAS_DEFINITION_POSITION[1], 
                                                text=definition_text, 
                                                font=CANVAS_DEFINITION_FONT, 
                                                width=CANVAS_DEFINITION_WIDTH)
-        self.canvas_word = canvas.create_text(CANVAS_WORD_POSITION[0], 
+        self.canvas_word = self.canvas.create_text(CANVAS_WORD_POSITION[0], 
                                          CANVAS_WORD_POSITION[1], 
                                          text=word_text, 
                                          font=CANVAS_WORD_FONT, 
                                          width=CANVAS_WORD_WIDTH)
-        canvas.grid(row=CANVAS_GRID_POSITION[0], 
+        self.canvas.grid(row=CANVAS_GRID_POSITION[0], 
                     column=CANVAS_GRID_POSITION[1], 
                     columnspan=CANVAS_GRID_POSITION[2])
 
