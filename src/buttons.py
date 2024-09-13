@@ -21,7 +21,7 @@ class ButtonManager:
     """
     
     def __init__(self, root: Tk, canvas_manager: CanvasManager):
-        super().__init__()
+        # super().__init__()
         self.window = root
         self.canvas_manager = canvas_manager
         self.definition_text = None
