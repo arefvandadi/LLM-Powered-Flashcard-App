@@ -81,8 +81,8 @@ class ButtonManager:
         self.right_button.grid_forget()
 
         self.set_word_text_when_wrong_and_right_buttons_clicked()
-        self.canvas.itemconfig(self.canvas_manager.canvas_word, text=self.canvas_manager.word_text, font=("Arial",30, "bold"))
-        self.canvas.itemconfig(self.canvas_manager.canvas_definition, text=f"")
+        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_word, text=self.canvas_manager.word_text, font=("Arial",30, "bold"))
+        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=f"")
 
         # Binding and unbinding Keyboard Keys
         self.window.unbind("<space>")
@@ -103,8 +103,8 @@ class ButtonManager:
         self.wrong_button.grid_forget()
         self.right_button.grid_forget()
 
-        self.canvas.itemconfig(self.canvas_manager.canvas_word, text=self.canvas_manager.word_text, font=("Arial",30, "bold"))
-        self.canvas.itemconfig(self.canvas_manager.canvas_definition, text=f"")
+        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_word, text=self.canvas_manager.word_text, font=("Arial",30, "bold"))
+        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=f"")
 
         # Binding and unbinding Keyboard Keys
         self.window.unbind("<space>")
@@ -128,7 +128,7 @@ class ButtonManager:
 
         #
         # canvas.itemconfig(canvas_word, text=f"{words_repo.iloc[0,1]}", font=("Arial",30, "bold"))
-        self.canvas.itemconfig(self.canvas_manager.canvas_definition, text=self.canvas_manager.definition_text)
+        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=self.canvas_manager.definition_text)
 
         # Binding and unbinding Keyboard Keys
         self.window.unbind("<space>")
