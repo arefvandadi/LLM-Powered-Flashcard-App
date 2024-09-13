@@ -43,7 +43,7 @@ class CanvasManager:
         self.canvas_image = self.canvas.create_image(CANVAS_IMAGE_SIZE[0], 
                                            CANVAS_IMAGE_SIZE[1], 
                                            image=self.front_img)
-        self.canvas_definition = self.canvas.create_text(self._DEFINITION_POSITION[0], 
+        self.canvas_definition = self.canvas.create_text(CANVAS_DEFINITION_POSITION[0], 
                                                CANVAS_DEFINITION_POSITION[1], 
                                                text="", 
                                                font=CANVAS_DEFINITION_FONT, 
@@ -62,8 +62,8 @@ class CanvasManager:
         word_repo = pd.read_csv("./data/words/words_to_learn.csv")
         word_repo_length = word_repo.shape[0]
         random_row = random.randint(0, word_repo_length-1)
-        self.word_text = word_repo.iloc[random_row,1]
-        self.definition_text = word_repo.iloc[random_row,2]
+        self.word_text = word_repo.iloc[random_row,0]
+        self.definition_text = word_repo.iloc[random_row,1]
 
 
 
