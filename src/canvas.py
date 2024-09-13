@@ -64,14 +64,3 @@ class CanvasManager:
         random_row = random.randint(0, word_repo_length-1)
         self.word_text = word_repo.iloc[random_row,0]
         self.definition_text = word_repo.iloc[random_row,1]
-
-
-
-# # Main Canvas for showing words and meanings in the App
-# front_img = PhotoImage(file="./data/images/card_front.png")
-# back_img = PhotoImage(file="./data/images/card_back.png")
-# canvas = Canvas(width=800, height=526, bg=BACKGROUND_COLOR, highlightthickness=0)
-# canvas_image = canvas.create_image(400, 263, image=front_img)
-# canvas_definition = canvas.create_text(400, 150, text=f"", font=("Arial",15), width=500)
-# canvas_word = canvas.create_text(400, 50, text=f"{words_repo.iloc[0,0]}", font=("Arial",30, "bold"), width=500)
-# canvas.grid(row=0, column=0, columnspan=6)
