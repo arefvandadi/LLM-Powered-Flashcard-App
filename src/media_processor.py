@@ -5,6 +5,8 @@ from transformers import pipeline
 import textwrap
 from openai import OpenAI
 
+DOWNLOADED_VIDEO_NAME = "downloaded-video"
+
 class MediaProcessor:
     """
     A class to handle various media processing tasks for YouTube videos.
@@ -65,7 +67,7 @@ class MediaProcessor:
 
             # Specifies the output folder for the yt-dlp video downloads
             yt_options = {
-                'outtmpl':self.video_destination_folder + "%(title)s.%(ext)s",
+                'outtmpl':self.video_destination_folder + DOWNLOADED_VIDEO_NAME + ".%(ext)s",
                 'merge_output_format': 'mp4'
             }
 
@@ -92,8 +94,8 @@ class MediaProcessor:
         """
         # This if statement ensures that the downloader was run and youtube video was downloaded and available
         if self.youtube_video_title and self.original_youtube_url:
-            video_file = ffmpeg.input(self.video_destination_folder + self.youtube_video_title + ".mp4")
-            video_file.output(self.audio_destination_folder + self.youtube_video_title + "_audio.wav", acodec="pcm_s16le").run()
+            video_file = ffmpeg.input(self.video_destination_folder + DOWNLOADED_VIDEO_NAME + ".mp4")
+            video_file.output(self.audio_destination_folder + DOWNLOADED_VIDEO_NAME + "_audio.wav", acodec="pcm_s16le").run()
             self.audio_wav_created = True
         else:
             print("No youtube video is available. Please make sure a video is downloaded first using youtube_video_downloader method")
@@ -136,7 +138,7 @@ class MediaProcessor:
         """
         if self.audio_wav_created:
             pipe = pipeline("automatic-speech-recognition", model="openai/whisper-small")
-            output = pipe(self.audio_destination_folder + self.youtube_video_title + "_audio.wav")
+            output = pipe(self.audio_destination_folder + DOWNLOADED_VIDEO_NAME + "_audio.wav")
             transcription_text = output["text"]
             wrapped_transcription = textwrap.fill(transcription_text, width=80)
             self.transcription = wrapped_transcription
@@ -144,7 +146,7 @@ class MediaProcessor:
             # following line updates self.gpt_prompt_template attribute with the updated self.transcription from previous line 
             self.gpt_prompt_template = self._generate_gpt_prompt_template()
 
-            with open(self.text_destination_folder + self.youtube_video_title + "_transcription.txt", "w") as file:
+            with open(self.text_destination_folder + DOWNLOADED_VIDEO_NAME + "_transcription.txt", "w") as file:
                 file.write(self.transcription)
         else:
             print("No audio file is available. Make sure audio_extractor is run before runnig this method")
@@ -222,9 +224,9 @@ class MediaProcessor:
 
     def media_files_deleter(self):
         if self.delete_media:
-            os.remove(self.video_destination_folder + self.youtube_video_title + ".mp4")
-            os.remove(self.audio_destination_folder + self.youtube_video_title + "_audio.wav")
-            os.remove(self.text_destination_folder + self.youtube_video_title + "_transcription.txt")
+            os.remove(self.video_destination_folder + DOWNLOADED_VIDEO_NAME + ".mp4")
+            os.remove(self.audio_destination_folder + DOWNLOADED_VIDEO_NAME + "_audio.wav")
+            os.remove(self.text_destination_folder + DOWNLOADED_VIDEO_NAME + "_transcription.txt")
 
     
     def extract_words_from_youtube_pipeline(self):
