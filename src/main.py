@@ -36,6 +36,19 @@ window.title("FlashMind")
 window.config(padx=50, pady=50)
 window.config(bg=BACKGROUND_COLOR)
 
+
+menu_bar = Menu(window)
+window.config(menu=menu_bar)
+
+import_menu = Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="Import", menu=import_menu)
+
+youtube_icon_img = PhotoImage(file="./data/images/youtube-icon-2.png")
+import_menu.add_command(label="YouTube", image=youtube_icon_img, compound="left")
+
+export_menu = Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="Export", menu=export_menu)
+
 # Main Canvas for showing words and meanings in the App
 canvas_manager = CanvasManager()
 canvas_manager.create_canvas()
