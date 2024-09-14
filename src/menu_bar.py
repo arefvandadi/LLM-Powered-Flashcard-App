@@ -7,8 +7,10 @@ MENU_TITLE_1_SUB_MENU = "YouTube"
 YOUTUBE_FAVICON_PATH = "./data/images/youtube-icon-2.png"
 
 class MenuBarManager:
-    def __init__(self, root: Tk):
+    def __init__(self, root: Tk, MediaProcessor_class: MediaProcessor, words_saver_func: words_saver):
         self.window = root
+        self.MediaProcessor_class = MediaProcessor_class
+        self.words_saver_func = words_saver_func
         self.menu_bar = Menu(self.window)
         self.window.config(menu=self.menu_bar)
         self.youtube_icon_img = PhotoImage(file=YOUTUBE_FAVICON_PATH)
@@ -69,12 +71,12 @@ class MenuBarManager:
 
     def handle_import(self, url_entry):
         youtube_url = url_entry.get()
-        youtube_handler = MediaProcessor(youtube_url=youtube_url)
+        youtube_handler = self.MediaProcessor_class(youtube_url=youtube_url)
         words_list, definition_list = youtube_handler.extract_words_from_youtube_pipeline()
         print(words_list)
         print(definition_list)
         # # print(type(words_list))
 
-        words_saver(words_list, definition_list)
+        self.words_saver_func(words_list, definition_list)
 
 
