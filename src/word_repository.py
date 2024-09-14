@@ -54,4 +54,6 @@ class WordRepoManager:
 
         #Add the new words and definitions to the main word repository Dataframe and drop the duplicates
         self.word_repo = pd.concat([self.word_repo, new_pd], axis=0, ignore_index=True).drop_duplicates("English")
-        # words_Dataframe.to_csv(words_destination_path + "words_to_learn.csv", index=False)
+        
+        # Update the Word Remaining label on GUI
+        self.calculate_number_of_words_in_word_repo()

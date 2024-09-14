@@ -11,6 +11,7 @@ BACKGROUND_COLOR = "#B1DDC6"
 ################################ Youtube Link Examples ############################################
 # # SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
 # SHORTER_YOUTUBE_LINK = "https://youtu.be/Sbo8R-v7s98"
+# Link: https://www.youtube.com/shorts/IIaqTEO5txE?feature=share
 
 
 ###################### Main Window #######################
