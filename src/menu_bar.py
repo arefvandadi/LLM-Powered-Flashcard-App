@@ -17,7 +17,10 @@ class MenuBarManager:
         import_menu = Menu(self.menu_bar, tearoff=0)
         self.menu_bar.add_cascade(label=MENU_TITLE_1, menu=import_menu)
 
-        import_menu.add_command(label=MENU_TITLE_1_SUB_MENU, image=self.youtube_icon_img, compound="left", command=self.youtube_import_from_menu)
+        import_menu.add_command(label=MENU_TITLE_1_SUB_MENU, 
+                                image=self.youtube_icon_img, 
+                                compound="left", 
+                                command=self.youtube_import_from_menu)
     
 
     ###################### Youtube Importing Menu #######################
@@ -48,17 +51,20 @@ class MenuBarManager:
         # youtube_url = youtube_url_entry.get()
 
         # # Create and place an Import button
-        import_button = Button(youtube_window, text="Import", command=lambda: self.handle_import(youtube_url_entry))
-        import_button.grid(row=1, column=1)
+        import_button = Button(youtube_window, 
+                               text="Import", 
+                               command=lambda: self.handle_import(youtube_url_entry))
+        import_button.grid(row=1, column=0)
 
         # When the top-level window is destroyed, re-enable the main window
         # youtube_window.protocol("WM_DELETE_WINDOW", lambda: on_close(youtube_window))
 
-
-    def on_close(self, window_input):
-        """Handle the closing of the top-level window."""
-        window_input.destroy()  # Close the top-level window
-        window_input.master.attributes('-disabled', False)  # Re-enable the main window
+    # This function together with commented out lines in youtube_import_from_menu method can be used to disable the main window when the top window is open
+    # Not used in this code now. 
+    # def on_close(self, window_input):
+    #     """Handle the closing of the top-level window."""
+    #     window_input.destroy()  # Close the top-level window
+    #     window_input.master.attributes('-disabled', False)  # Re-enable the main window
 
 
     def handle_import(self, url_entry):

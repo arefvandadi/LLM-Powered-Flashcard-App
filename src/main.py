@@ -1,13 +1,13 @@
-from media_processor import MediaProcessor
-from words_saver import words_saver
-from tkinter import * 
+# from media_processor import MediaProcessor
+# from words_saver import words_saver
+from tkinter import Tk
 import pandas as pd
 from canvas import CanvasManager
 from buttons import ButtonManager
 from menu_bar import MenuBarManager
 
 BACKGROUND_COLOR = "#B1DDC6"
-SHOW_ANSWER_BACKGROUND_COLOR = "#00ac00"
+# SHOW_ANSWER_BACKGROUND_COLOR = "#00ac00"
 
 ################################ Youtube Link Examples ############################################
 
