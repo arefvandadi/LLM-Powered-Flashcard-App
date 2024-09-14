@@ -1,5 +1,4 @@
 from tkinter import Tk
-import pandas as pd
 from canvas import CanvasManager
 from buttons import ButtonManager
 from menu_bar import MenuBarManager
@@ -7,12 +6,6 @@ from media_processor import MediaProcessor
 from word_repository import WordRepoManager
 
 BACKGROUND_COLOR = "#B1DDC6"
-
-################################ Youtube Link Examples ############################################
-# # SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
-# SHORTER_YOUTUBE_LINK = "https://youtu.be/Sbo8R-v7s98"
-# Link: https://www.youtube.com/shorts/IIaqTEO5txE?feature=share
-
 
 ###################### Main Window #######################
 window = Tk()

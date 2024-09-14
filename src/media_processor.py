@@ -7,6 +7,8 @@ from openai import OpenAI
 
 DOWNLOADED_VIDEO_NAME = "downloaded-video"
 
+GPT_MODEL = ["gpt-4o-mini", "gpt-4o"]
+
 class MediaProcessor:
     """
     A class to handle various media processing tasks for YouTube videos.
@@ -44,7 +46,7 @@ class MediaProcessor:
         self.audio_wav_created = False
         self.transcription = None
         self.gpt_prompt_template = None
-        self.gpt_model = ["gpt-4o-mini", "gpt-4o"]
+        self.gpt_model = GPT_MODEL[0]
         self.word_list = None
         self.definition_list = None
         self.gpt_definition_prompt_template = None
@@ -78,8 +80,7 @@ class MediaProcessor:
                 # Updates "youtube_video_title" and "original_youtube_url" class attributes 
                 self.youtube_video_title = info_dict.get("title")
                 self.original_youtube_url = info_dict.get("original_url")
-                # print(info_dict.get("title"))
-                # print(info_dict.get("original_url"))
+               
         else:
             print("No Youtube URL was provided in MediaProcessor class")
 
@@ -164,7 +165,7 @@ class MediaProcessor:
         api_key = os.getenv("OPENAI_API_KEY")
         client = OpenAI(api_key=api_key)
         completion = client.chat.completions.create(
-        model=self.gpt_model[0],
+        model=self.gpt_model,
         messages=[
             {"role": "user", "content": self.gpt_prompt_template}
         ]
@@ -212,7 +213,7 @@ class MediaProcessor:
         api_key = os.getenv("OPENAI_API_KEY")
         client = OpenAI(api_key=api_key)
         completion = client.chat.completions.create(
-        model=self.gpt_model[0],
+        model=self.gpt_model,
         messages=[
             {"role": "user", "content": self.gpt_definition_prompt_template}
         ]
@@ -245,34 +246,3 @@ class MediaProcessor:
         list_of_definitons = self.definition_finder_gpt()
         self.media_files_deleter()
         return list_of_words, list_of_definitons
-
-# SHORTER_YOUTUBE_LINK = "https://youtu.be/yY_kCcQ1r64"
-# youtube_handler = MediaProcessor(youtube_url=SHORTER_YOUTUBE_LINK)
-# youtube_handler.youtube_video_downloader()
-# youtube_handler.audio_extractor()
-# youtube_handler.transcriber()
-# print(youtube_handler.get_gpt_response())
-
-
-#################### Use a Free LLM to Analyze the Text and Extract Words ################################
-# with open("./data/text/transcription.txt", "r") as file:
-#     context = file.read()
-# print(context)
-
-## LLama2-CHAT-7b --> Seem to need login and Huggingface Credentials
-# llama_textgenerator = pipeline("text-generation", model="meta-llama/Llama-2-7b-chat-hf")
-
-# messages = [
-#     {"role": "user", "content": "How many countries are in the word?"},
-# ]
-# response = llama_textgenerator(messages)
-# print(response)
-
-## GPT2 --> Seem to just generate similar sentences to what the question is.
-# gpt_textgenerator = pipeline("text-generation", model="openai-community/gpt2")
-# response = gpt_textgenerator("Is there a world in the following text that is How many countries are in the world?")
-
-## ROBERTA --> You need to give it a context and it is not that good at answering them
-# questions_answering = pipeline("question-answering", model="deepset/roberta-base-squad2")
-# response = questions_answering(question="How many words are in the context provided", context=context)
-# print(response)

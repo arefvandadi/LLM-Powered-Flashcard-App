@@ -1,7 +1,5 @@
 from tkinter import Canvas, PhotoImage
 from word_repository import WordRepoManager
-import pandas as pd 
-import random
 
 CARD_FRONT_IMAGE_PATH = "./data/images/card_front.png"
 CARD_BACK_IMAGE_PATH = "./data/images/card_back.png"
@@ -21,10 +19,16 @@ CANVAS_WORD_POSITION = (400, 50)
 CANVAS_WORD_FONT = ("Arial",30, "bold")
 CANVAS_WORD_WIDTH = 500
 
-CANVAS_GRID_POSITION = (1, 0, 6)
+CANVAS_GRID_POSITION = {'row': 1, 'column': 0, 'columnspan': 6}
 
 
 class CanvasManager:
+    """
+    A class to manage the main canvas showing the text of the word and its definition.
+
+    Attributes:
+        word_repo_manager (WordRepoManager): Takes an instance of WordRepoManager as an argument. 
+    """
     def __init__(self, word_repo_manager: WordRepoManager):
         self.word_repo_manager = word_repo_manager
         self.word_text = self.word_repo_manager.word_text
@@ -32,13 +36,10 @@ class CanvasManager:
         self.canvas_image = None
         self.canvas_definition = None
         self.canvas_word = None
-        self.front_img = PhotoImage(file="./data/images/card_front.png")
-        self.back_img = PhotoImage(file="./data/images/card_back.png")
-        # self.word_text = None
-        # self.definition_text = None
+        self.front_img = PhotoImage(file=CARD_FRONT_IMAGE_PATH)
+        # self.back_img = PhotoImage(file="./data/images/card_back.png")
 
     def create_canvas(self):
-        # self.word_retriver()
         self.canvas = Canvas(width=CANVAS_WIDTH, 
                         height=CANVAS_HEIGHT, 
                         bg=BACKGROUND_COLOR, 
@@ -56,14 +57,4 @@ class CanvasManager:
                                          text=self.word_text, 
                                          font=CANVAS_WORD_FONT, 
                                          width=CANVAS_WORD_WIDTH)
-        self.canvas.grid(row=CANVAS_GRID_POSITION[0], 
-                    column=CANVAS_GRID_POSITION[1], 
-                    columnspan=CANVAS_GRID_POSITION[2])
-    
-
-    # def word_retriver(self):
-    #     word_repo = pd.read_csv("./data/words/words_to_learn.csv")
-    #     word_repo_length = word_repo.shape[0]
-    #     random_row = random.randint(0, word_repo_length-1)
-    #     self.word_text = word_repo.iloc[random_row,0]
-    #     self.definition_text = word_repo.iloc[random_row,1]
+        self.canvas.grid(**CANVAS_GRID_POSITION)

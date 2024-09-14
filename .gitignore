@@ -1,6 +1,10 @@
 # sandbox environment for testing code snippets. Will be deleted at the end.
 scratch.py
 
+# Todo List and Notes
+TODO.md
+Notes.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

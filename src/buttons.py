@@ -1,5 +1,4 @@
 from tkinter import *
-import pandas as pd
 from canvas import CanvasManager
 from word_repository import WordRepoManager
 
@@ -7,9 +6,12 @@ BACKGROUND_COLOR = "#B1DDC6"
 
 SHOW_ANSWER_BUTTON_TEXT = "show answer"
 SHOW_ANSWER_BACKGROUND_COLOR = "#00ac00"
+SHOW_ANSWER_BUTTON_GRID = {'row': 2, 'column': 2, 'columnspan': 2}
 
 WRONG_BUTTON_PATH = "./data/images/wrong.png"
+WRONG_BUTTON_GRID = {'row': 2, 'column': 2}
 RIGHT_BUTTON_PATH = "./data/images/right.png"
+RIGHT_BUTTON_GRID = {'row': 2, 'column': 3}
 
 HIGHLIGHT_THICKNESS = 0
 
@@ -22,12 +24,9 @@ class ButtonManager:
     """
     
     def __init__(self, root: Tk, canvas_manager: CanvasManager, word_repo_manager: WordRepoManager):
-        # super().__init__()
         self.window = root
         self.canvas_manager = canvas_manager
         self.word_repo_manager = word_repo_manager
-        # self.definition_text = None
-        # self.new_word_text = None
         self.wrong_img = PhotoImage(file="./data/images/wrong.png")
         self.right_img = PhotoImage(file="./data/images/right.png")
     
@@ -38,7 +37,6 @@ class ButtonManager:
                               bg=BACKGROUND_COLOR, 
                               highlightthickness=HIGHLIGHT_THICKNESS, 
                               command=self.wrong_button_functionality)
-        # self.wrong_button.grid(row=1, column=1)
 
         # Right Button
         self.right_button = Button(self.window, 
@@ -46,7 +44,6 @@ class ButtonManager:
                               bg=BACKGROUND_COLOR, 
                               highlightthickness=HIGHLIGHT_THICKNESS, 
                               command=self.right_button_functionality)
-        # self.right_button.grid(row=1, column=4)
 
         # Show Answer Button
         self.showanswer_button = Button(self.window, 
@@ -60,7 +57,7 @@ class ButtonManager:
             font=("Arial",20, "bold"), 
             background=SHOW_ANSWER_BACKGROUND_COLOR, 
             activebackground=SHOW_ANSWER_BACKGROUND_COLOR)
-        self.showanswer_button.grid(row=2, column=2, columnspan=2)
+        self.showanswer_button.grid(**SHOW_ANSWER_BUTTON_GRID)
         self.window.bind("<space>",self.show_answer)
 
 
@@ -71,7 +68,7 @@ class ButtonManager:
         self.word_repo_manager.word_retriver()
 
         # Bring Show Answer Button back on
-        self.showanswer_button.grid(row=2, column=2, columnspan=2)
+        self.showanswer_button.grid(**SHOW_ANSWER_BUTTON_GRID)
         
         # Hide Right and Wrong Buttons
         self.wrong_button.grid_forget()
@@ -100,7 +97,7 @@ class ButtonManager:
         self.word_repo_manager.word_retriver()
 
         # Bring Show Answer Button back on
-        self.showanswer_button.grid(row=2, column=2, columnspan=2)
+        self.showanswer_button.grid(**SHOW_ANSWER_BUTTON_GRID)
         
         # Hide Right and Wrong Buttons
         self.wrong_button.grid_forget()
@@ -121,10 +118,10 @@ class ButtonManager:
         self.showanswer_button.grid_forget()
 
         # Bring Right and Wrong Buttons back on
-        self.wrong_button.grid(row=2, column=2)
-        self.right_button.grid(row=2, column=3)
+        self.wrong_button.grid(**WRONG_BUTTON_GRID)
+        self.right_button.grid(**RIGHT_BUTTON_GRID)
  
-        # canvas.itemconfig(canvas_word, text=f"{words_repo.iloc[0,1]}", font=("Arial",30, "bold"))
+        # Shows the meaning of the word on canvas when Show Answer button is pressed.
         self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=self.word_repo_manager.definition_text)
   
         # Binding and unbinding Keyboard Keys
