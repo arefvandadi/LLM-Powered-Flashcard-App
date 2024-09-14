@@ -60,7 +60,7 @@ class ButtonManager:
             font=("Arial",20, "bold"), 
             background=SHOW_ANSWER_BACKGROUND_COLOR, 
             activebackground=SHOW_ANSWER_BACKGROUND_COLOR)
-        self.showanswer_button.grid(row=1, column=2, columnspan=2)
+        self.showanswer_button.grid(row=2, column=2, columnspan=2)
         self.window.bind("<space>",self.show_answer)
 
 
@@ -71,7 +71,7 @@ class ButtonManager:
         self.word_repo_manager.word_retriver()
 
         # Bring Show Answer Button back on
-        self.showanswer_button.grid(row=1, column=2, columnspan=2)
+        self.showanswer_button.grid(row=2, column=2, columnspan=2)
         
         # Hide Right and Wrong Buttons
         self.wrong_button.grid_forget()
@@ -93,11 +93,14 @@ class ButtonManager:
         # Remove the correctly guessed word from the word repo
         self.word_repo_manager.word_remover()
 
+        #Update Word Remaining Label
+        self.word_repo_manager.calculate_number_of_words_in_word_repo()
+
         # Ask CanvasManager's word_retriever method to pick a new word from word_repo
         self.word_repo_manager.word_retriver()
 
         # Bring Show Answer Button back on
-        self.showanswer_button.grid(row=1, column=2, columnspan=2)
+        self.showanswer_button.grid(row=2, column=2, columnspan=2)
         
         # Hide Right and Wrong Buttons
         self.wrong_button.grid_forget()
@@ -118,8 +121,8 @@ class ButtonManager:
         self.showanswer_button.grid_forget()
 
         # Bring Right and Wrong Buttons back on
-        self.wrong_button.grid(row=1, column=2)
-        self.right_button.grid(row=1, column=3)
+        self.wrong_button.grid(row=2, column=2)
+        self.right_button.grid(row=2, column=3)
  
         # canvas.itemconfig(canvas_word, text=f"{words_repo.iloc[0,1]}", font=("Arial",30, "bold"))
         self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=self.word_repo_manager.definition_text)

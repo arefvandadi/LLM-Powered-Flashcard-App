@@ -36,8 +36,10 @@ button_manager = ButtonManager(window, canvas_manager, word_repo_manager)
 button_manager.create_buttons()
 
 
-
+# Changes the closing protocol of the app window. 
+# It binds the actions of closing the window with the update_word_repo_csv method in word_repository module. 
 window.protocol("WM_DELETE_WINDOW", word_repo_manager.update_word_repo_csv)
+
 window.mainloop()
 
 

@@ -1,21 +1,30 @@
-from tkinter import Tk
+from tkinter import *
 import pandas as pd
 import random
+
+BACKGROUND_COLOR = "#B1DDC6"
 
 class WordRepoManager:
     def __init__(self, root: Tk):
         self.window = root
         self.word_repo = pd.read_csv("./data/words/words_to_learn.csv")
-        word_repo_length = self.word_repo.shape[0]
-        self.random_row = random.randint(0, word_repo_length-1)
+        self.word_repo_length = self.word_repo.shape[0]
+        self.random_row = random.randint(0, self.word_repo_length-1)
         self.word_text = self.word_repo.iloc[self.random_row,0]
         self.definition_text = self.word_repo.iloc[self.random_row,1]
+        # self.words_remaining_counter = self.word_repo_length
+        self.words_remaining_label = Label(self.window, text=f"Words Remaining: {self.word_repo_length}", font=("Arial", 10, "bold"), bg=BACKGROUND_COLOR, pady=10)
+        self.words_remaining_label.grid(row=0, column=2, columnspan=2)
         
+
+    def calculate_number_of_words_in_word_repo(self):
+        self.word_repo_length = self.word_repo.shape[0]
+        self.words_remaining_label.config(text=f"Words Remaining: {self.word_repo_length}")
 
     def word_retriver(self):
         # self.word_repo = pd.read_csv("./data/words/words_to_learn.csv") # Not Needed. Add an Update Repo fucntion 
-        word_repo_length = self.word_repo.shape[0]
-        self.random_row = random.randint(0, word_repo_length-1)
+        self.word_repo_length = self.word_repo.shape[0]
+        self.random_row = random.randint(0, self.word_repo_length-1)
         self.word_text = self.word_repo.iloc[self.random_row,0]
         self.definition_text = self.word_repo.iloc[self.random_row,1]
 
