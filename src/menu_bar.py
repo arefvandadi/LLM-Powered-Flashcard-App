@@ -1,16 +1,17 @@
 from tkinter import * 
 from media_processor import MediaProcessor
-from words_saver import words_saver
+# from words_saver import words_saver
+from word_repository import WordRepoManager
 
 MENU_TITLE_1 = "Import"
 MENU_TITLE_1_SUB_MENU = "YouTube"
 YOUTUBE_FAVICON_PATH = "./data/images/youtube-icon-2.png"
 
 class MenuBarManager:
-    def __init__(self, root: Tk, MediaProcessor_class: MediaProcessor, words_saver_func: words_saver):
+    def __init__(self, root: Tk, MediaProcessor_class: MediaProcessor, word_repo_manager: WordRepoManager):
         self.window = root
         self.MediaProcessor_class = MediaProcessor_class
-        self.words_saver_func = words_saver_func
+        self.word_repo_manager = word_repo_manager
         self.menu_bar = Menu(self.window)
         self.window.config(menu=self.menu_bar)
         self.youtube_icon_img = PhotoImage(file=YOUTUBE_FAVICON_PATH)
@@ -77,6 +78,6 @@ class MenuBarManager:
         print(definition_list)
         # # print(type(words_list))
 
-        self.words_saver_func(words_list, definition_list)
+        self.word_repo_manager.words_saver(words_list, definition_list)
 
 

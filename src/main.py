@@ -4,7 +4,7 @@ from canvas import CanvasManager
 from buttons import ButtonManager
 from menu_bar import MenuBarManager
 from media_processor import MediaProcessor
-from words_saver import words_saver
+from word_repository import WordRepoManager
 
 BACKGROUND_COLOR = "#B1DDC6"
 
@@ -19,21 +19,25 @@ window.title("FlashMind")
 window.config(padx=50, pady=50)
 window.config(bg=BACKGROUND_COLOR)
 
+# Word Repository Manager
+word_repo_manager = WordRepoManager(window)
+
 # Create Manu Bar and Handle Importing Words by Using media_processor and words_saver modules
-menu_bar_manager = MenuBarManager(window, MediaProcessor, words_saver)
+menu_bar_manager = MenuBarManager(window, MediaProcessor, word_repo_manager)
 menu_bar_manager.create_menu()
 
 
 # Main Canvas for showing words and meanings in the App
-canvas_manager = CanvasManager()
+canvas_manager = CanvasManager(word_repo_manager)
 canvas_manager.create_canvas()
 
 # Main Buttons and their functionality
-button_manager = ButtonManager(window, canvas_manager)
+button_manager = ButtonManager(window, canvas_manager, word_repo_manager)
 button_manager.create_buttons()
 
 
 
+window.protocol("WM_DELETE_WINDOW", word_repo_manager.update_word_repo_csv)
 window.mainloop()
 
 

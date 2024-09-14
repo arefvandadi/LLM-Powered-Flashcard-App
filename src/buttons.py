@@ -1,6 +1,7 @@
 from tkinter import *
 import pandas as pd
 from canvas import CanvasManager
+from word_repository import WordRepoManager
 
 BACKGROUND_COLOR = "#B1DDC6"
 
@@ -20,12 +21,13 @@ class ButtonManager:
         root (Tk): An instance of Tk class from tkinter 
     """
     
-    def __init__(self, root: Tk, canvas_manager: CanvasManager):
+    def __init__(self, root: Tk, canvas_manager: CanvasManager, word_repo_manager: WordRepoManager):
         # super().__init__()
         self.window = root
         self.canvas_manager = canvas_manager
-        self.definition_text = None
-        self.new_word_text = None
+        self.word_repo_manager = word_repo_manager
+        # self.definition_text = None
+        # self.new_word_text = None
         self.wrong_img = PhotoImage(file="./data/images/wrong.png")
         self.right_img = PhotoImage(file="./data/images/right.png")
     
@@ -66,7 +68,7 @@ class ButtonManager:
     def wrong_button_functionality(self, event=None):
 
         # Ask CanvasManager's word_retriever method to pick a new word from word_repo
-        self.canvas_manager.word_retriver()    
+        self.word_repo_manager.word_retriver()
 
         # Bring Show Answer Button back on
         self.showanswer_button.grid(row=1, column=2, columnspan=2)
@@ -76,7 +78,7 @@ class ButtonManager:
         self.right_button.grid_forget()
 
         # self.set_word_text_when_wrong_and_right_buttons_clicked()
-        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_word, text=self.canvas_manager.word_text, font=("Arial",30, "bold"))
+        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_word, text=self.word_repo_manager.word_text, font=("Arial",30, "bold"))
         self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=f"")
 
         # Binding and unbinding Keyboard Keys
@@ -88,8 +90,11 @@ class ButtonManager:
     ###################### Right Button Functionality ######################
     def right_button_functionality(self, event=None):
         
+        # Remove the correctly guessed word from the word repo
+        self.word_repo_manager.word_remover()
+
         # Ask CanvasManager's word_retriever method to pick a new word from word_repo
-        self.canvas_manager.word_retriver()
+        self.word_repo_manager.word_retriver()
 
         # Bring Show Answer Button back on
         self.showanswer_button.grid(row=1, column=2, columnspan=2)
@@ -98,7 +103,7 @@ class ButtonManager:
         self.wrong_button.grid_forget()
         self.right_button.grid_forget()
 
-        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_word, text=self.canvas_manager.word_text, font=("Arial",30, "bold"))
+        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_word, text=self.word_repo_manager.word_text, font=("Arial",30, "bold"))
         self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=f"")
 
         # Binding and unbinding Keyboard Keys
@@ -117,7 +122,7 @@ class ButtonManager:
         self.right_button.grid(row=1, column=3)
  
         # canvas.itemconfig(canvas_word, text=f"{words_repo.iloc[0,1]}", font=("Arial",30, "bold"))
-        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=self.canvas_manager.definition_text)
+        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=self.word_repo_manager.definition_text)
   
         # Binding and unbinding Keyboard Keys
         self.window.unbind("<space>")
