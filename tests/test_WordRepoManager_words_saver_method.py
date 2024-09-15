@@ -3,6 +3,7 @@ import pandas as pd
 from unittest.mock import MagicMock
 from tkinter import Tk
 from src.word_repository import WordRepoManager
+# from word_repository import WordRepoManager
 
 @pytest.fixture
 def mock_word_repo_manager():
@@ -43,3 +44,16 @@ def test_words_saver_saving_words_correctly(mock_word_repo_manager):
     })
 
     pd.testing.assert_frame_equal(manager.word_repo, expected_repo)
+
+
+def test_words_saver_handling_empty_inputs(mock_word_repo_manager):
+    """Test handling of empty word and definition lists."""
+    manager = mock_word_repo_manager
+    initial_word_repo = manager.word_repo.copy()
+    print(initial_word_repo)
+    new_words = []
+    new_definitions = []
+    manager.words_saver(new_words, new_definitions)
+
+    pd.testing.assert_frame_equal(manager.word_repo, initial_word_repo)
+
