@@ -5,28 +5,28 @@ from tkinter import Tk
 from src.word_repository import WordRepoManager
 
 @pytest.fixture
-def real_tk():
-    """Fixture to provide a mock Tk instance."""
+def mock_word_repo_manager():
+    """Fixture to provide a WordRepoManager instance with a real Tk instance and mocked dependencies."""
+    # Create the real Tk instance
     root = Tk()
-    yield root
-    root.destroy()
-
-
-@pytest.fixture
-def mock_word_repo_manager(real_tk):
-    """Fixture to provide a WordRepoManager instance with mocked dependencies."""
+    
     # Create a mock CSV DataFrame
     mock_df = pd.DataFrame({
         "English": ["Liberty", "poll"],
         "Definition": ["the state of being free within society", "a survey of public opinion"]
     })
-    
+
     # Mock pd.read_csv to return the mock DataFrame
     with pytest.MonkeyPatch.context() as m:
-        # replaces pd.read_csv() method used inside WordRepoManager class with a mock DataFrame  defined above
         m.setattr(pd, "read_csv", lambda _: mock_df)
-        manager = WordRepoManager(real_tk)
-        yield manager
+        manager = WordRepoManager(root)
+
+    # Yield the manager for the test to use
+    yield manager
+
+    # Destroy the Tk instance after the test is complete
+    root.destroy()
+
 
 
 # Test function to evaluate how the new words are concatenated into the word repository
