@@ -88,6 +88,11 @@ class WordRepoManager:
         ---------
         None
         """
+        if len(word_list) != len(definition_list):
+            print("Error:", "The number of words and definitions does not match. No words were added.")
+
+            return #Nothing is returned. Exit the function.
+
         new_pd = pd.DataFrame({"English":word_list})
         new_pd["Definition"] = definition_list
 
