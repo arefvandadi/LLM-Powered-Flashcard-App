@@ -4,6 +4,9 @@ import random
 
 BACKGROUND_COLOR = "#B1DDC6"
 
+WORDS_REPO_DESTINATION_FOLDER = "./data/words/"
+WORD_REPO_NAME = "words_to_learn.csv"
+
 class WordRepoManager:
     """
     A class to handle all the interactions with the word repository.
@@ -21,7 +24,7 @@ class WordRepoManager:
     """
     def __init__(self, root: Tk):
         self.window = root
-        self.word_repo = pd.read_csv("./data/words/words_to_learn.csv")
+        self.word_repo = pd.read_csv(WORDS_REPO_DESTINATION_FOLDER + WORD_REPO_NAME)
         self.word_repo_length = self.word_repo.shape[0]
         self.random_row = random.randint(0, self.word_repo_length-1)
         self.word_text = self.word_repo.iloc[self.random_row,0]
@@ -68,7 +71,7 @@ class WordRepoManager:
         self.word_repo.drop(index=self.random_row, inplace=True)
         self.word_repo = self.word_repo.reset_index(drop=True)
     
-    def update_word_repo_csv(self):
+    def update_word_repo_csv(self, words_repo_destination_folder=WORDS_REPO_DESTINATION_FOLDER):
         """
         Updates the word repository when the Flashcard App main window is closed.
 
@@ -76,10 +79,10 @@ class WordRepoManager:
         -----------
         None
         """
-        self.word_repo.to_csv("./data/words/words_to_learn.csv", index=False)
+        self.word_repo.to_csv(words_repo_destination_folder + WORD_REPO_NAME, index=False)
         self.window.destroy()
     
-    def words_saver(self, word_list: list, definition_list: list, words_destination_path: str="./data/words/"):
+    def words_saver(self, word_list: list, definition_list: list):
         """
         Takes a python list of new words and a python list of corresponding definitions 
         and adds them to the word repository
