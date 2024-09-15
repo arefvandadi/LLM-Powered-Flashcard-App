@@ -57,3 +57,13 @@ def test_words_saver_handling_empty_inputs(mock_word_repo_manager):
 
     pd.testing.assert_frame_equal(manager.word_repo, initial_word_repo)
 
+
+def test_words_saver_handling_mismatched_list_length(mock_word_repo_manager):
+    """Test if words and definitions are saved correctly."""
+    manager = mock_word_repo_manager
+    new_words = ["devalued"]
+    new_definitions = ["Reduced in worth or value.", "to keep or hold onto something"]
+    # manager.words_saver(new_words, new_definitions)
+
+    with pytest.raises(ValueError):
+        manager.words_saver(new_words, new_definitions)  # Should raise an error for mismatched list lengths
