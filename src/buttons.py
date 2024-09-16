@@ -90,7 +90,7 @@ class ButtonManager:
         self.word_repo_manager.word_remover()
 
         #Update Word Remaining Label
-        self.word_repo_manager.calculate_number_of_words_in_word_repo()
+        self.word_repo_manager._update_words_remaining_label()
 
         # Ask CanvasManager's word_retriever method to pick a new word from word_repo
         self.word_repo_manager.word_retriver()

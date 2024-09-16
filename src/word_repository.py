@@ -25,15 +25,18 @@ class WordRepoManager:
     def __init__(self, root: Tk):
         self.window = root
         self.word_repo = pd.read_csv(WORDS_REPO_DESTINATION_FOLDER + WORD_REPO_NAME)
-        self.word_repo_length = self.word_repo.shape[0]
+        self._update_word_repo_length()
         self.random_row = random.randint(0, self.word_repo_length-1)
         self.word_text = self.word_repo.iloc[self.random_row,0]
         self.definition_text = self.word_repo.iloc[self.random_row,1]
         self.words_remaining_label = Label(self.window, text=f"Words Remaining: {self.word_repo_length}", font=("Arial", 10, "bold"), bg=BACKGROUND_COLOR, pady=10)
         self.words_remaining_label.grid(row=0, column=2, columnspan=2)
-        
+    
 
-    def calculate_number_of_words_in_word_repo(self):
+    def _update_word_repo_length(self):
+        self.word_repo_length = self.word_repo.shape[0]
+
+    def _update_words_remaining_label(self):
         """
         Calculates the current number of words in the word repository.
         Updates the Word Remaining label on the GUI.
@@ -42,7 +45,7 @@ class WordRepoManager:
         -----------
         None
         """
-        self.word_repo_length = self.word_repo.shape[0]
+        self._update_word_repo_length()
         self.words_remaining_label.config(text=f"Words Remaining: {self.word_repo_length}")
 
     def word_retriver(self):
@@ -54,7 +57,7 @@ class WordRepoManager:
         -----------
         None
         """
-        self.word_repo_length = self.word_repo.shape[0]
+        self._update_word_repo_length()
         self.random_row = random.randint(0, self.word_repo_length-1)
         self.word_text = self.word_repo.iloc[self.random_row,0]
         self.definition_text = self.word_repo.iloc[self.random_row,1]
@@ -70,6 +73,7 @@ class WordRepoManager:
         """
         self.word_repo.drop(index=self.random_row, inplace=True)
         self.word_repo = self.word_repo.reset_index(drop=True)
+        self._update_word_repo_length()
     
     def update_word_repo_csv(self, words_repo_destination_folder=WORDS_REPO_DESTINATION_FOLDER):
         """
@@ -103,4 +107,4 @@ class WordRepoManager:
         self.word_repo = pd.concat([self.word_repo, new_pd], axis=0, ignore_index=True).drop_duplicates("English")
         
         # Update the Word Remaining label on GUI
-        self.calculate_number_of_words_in_word_repo()
+        self._update_words_remaining_label()
