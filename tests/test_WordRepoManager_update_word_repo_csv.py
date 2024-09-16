@@ -2,7 +2,7 @@ import pytest
 import pandas as pd
 from tkinter import Tk
 import _tkinter
-from src.word_repository import WordRepoManager
+from word_repository import WordRepoManager
 import os
 
 WORD_REPO_NAME = "words_to_learn.csv"

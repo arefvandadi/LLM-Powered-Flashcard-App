@@ -1,7 +1,7 @@
 from tkinter import *
 import pandas as pd
 import random
-from config import (
+from app_config import (
     BACKGROUND_COLOR,
     WORDS_REPO_DESTINATION_FOLDER,
     WORD_REPO_NAME

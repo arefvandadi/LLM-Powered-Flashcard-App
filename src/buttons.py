@@ -1,7 +1,7 @@
 from tkinter import *
 from canvas import CanvasManager
 from word_repository import WordRepoManager
-from config import (
+from app_config import (
     BACKGROUND_COLOR,
     SHOW_ANSWER_BUTTON_TEXT,
     SHOW_ANSWER_BACKGROUND_COLOR,

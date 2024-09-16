@@ -2,7 +2,7 @@ from tkinter import *
 from media_processor import MediaProcessor
 from buttons import ButtonManager
 from canvas import CanvasManager
-from config import (
+from app_config import (
     MENU_TITLE_1,
     MENU_TITLE_1_SUB_MENU,
     YOUTUBE_FAVICON_PATH,

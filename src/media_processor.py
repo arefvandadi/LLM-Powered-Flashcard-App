@@ -4,7 +4,7 @@ import ffmpeg
 from transformers import pipeline
 import textwrap
 from openai import OpenAI
-from config import (
+from app_config import (
     DOWNLOADED_VIDEO_NAME,
     GPT_MODEL
 )

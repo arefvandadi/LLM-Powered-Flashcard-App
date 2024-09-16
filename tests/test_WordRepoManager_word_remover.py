@@ -2,6 +2,7 @@ import pytest
 import pandas as pd
 from unittest.mock import MagicMock
 from tkinter import Tk
+from app_config import *
 from src.word_repository import WordRepoManager
 # from word_repository import WordRepoManager
 

@@ -5,7 +5,7 @@ from menu_bar import MenuBarManager
 from media_processor import MediaProcessor
 from word_repository import WordRepoManager
 
-from config import BACKGROUND_COLOR
+from app_config import BACKGROUND_COLOR
 
 ###################### Main Window #######################
 window = Tk()
