@@ -56,8 +56,16 @@ class ButtonManager:
             font=("Arial",20, "bold"), 
             background=SHOW_ANSWER_BACKGROUND_COLOR, 
             activebackground=SHOW_ANSWER_BACKGROUND_COLOR)
-        self.showanswer_button.grid(**SHOW_ANSWER_BUTTON_GRID)
-        self.window.bind("<space>",self.show_answer)
+        
+        # Makes sure the Shwo Answer button is not created if there is no words in the word repo. 
+        if self.word_repo_manager.word_repo_length > 0:
+            self.showanswer_button.grid(**SHOW_ANSWER_BUTTON_GRID)
+            self.window.bind("<space>",self.show_answer)
+            self.showanswer_button.config(state="normal")
+        else:
+            self.showanswer_button.grid(**SHOW_ANSWER_BUTTON_GRID)
+            # self.window.bind("<space>",self.show_answer)
+            self.showanswer_button.config(state="disabled")
 
 
     ###################### Wrong Button Functionality ######################
@@ -92,24 +100,41 @@ class ButtonManager:
         #Update Word Remaining Label
         self.word_repo_manager._update_words_remaining_label()
 
-        # Ask CanvasManager's word_retriever method to pick a new word from word_repo
-        self.word_repo_manager.word_retriver()
+        if self.word_repo_manager.word_repo_length > 0:
 
-        # Bring Show Answer Button back on
-        self.showanswer_button.grid(**SHOW_ANSWER_BUTTON_GRID)
-        
-        # Hide Right and Wrong Buttons
-        self.wrong_button.grid_forget()
-        self.right_button.grid_forget()
+            # Ask CanvasManager's word_retriever method to pick a new word from word_repo
+            self.word_repo_manager.word_retriver()
 
-        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_word, text=self.word_repo_manager.word_text, font=("Arial",30, "bold"))
-        self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=f"")
+            # Bring Show Answer Button back on
+            self.showanswer_button.grid(**SHOW_ANSWER_BUTTON_GRID)
+            self.showanswer_button.config(state="normal")
+            
+            # Hide Right and Wrong Buttons
+            self.wrong_button.grid_forget()
+            self.right_button.grid_forget()
 
-        # Binding and unbinding Keyboard Keys
-        self.window.unbind("<space>")
-        self.window.unbind("<m>")
-        self.window.bind("<space>", self.show_answer)
+            self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_word, text=self.word_repo_manager.word_text, font=("Arial",30, "bold"))
+            self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=f"")
 
+            # Binding and unbinding Keyboard Keys
+            self.window.unbind("<space>")
+            self.window.unbind("<m>")
+            self.window.bind("<space>", self.show_answer)
+        else:
+            self.showanswer_button.grid(**SHOW_ANSWER_BUTTON_GRID)
+            self.showanswer_button.config(state="disabled")
+            
+            # Hide Right and Wrong Buttons
+            self.wrong_button.grid_forget()
+            self.right_button.grid_forget()
+
+            self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_word, text="Good Job! Import More Words to Continue.", font=("Arial",16, "bold"))
+            self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=f"")
+
+            # Binding and unbinding Keyboard Keys
+            self.window.unbind("<space>")
+            self.window.unbind("<m>")
+            # self.window.bind("<space>", self.show_answer)
     
     ###################### Show Answer Function ######################
     def show_answer(self, event=None):

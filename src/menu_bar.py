@@ -1,6 +1,7 @@
 from tkinter import * 
 from media_processor import MediaProcessor
-from word_repository import WordRepoManager
+from buttons import ButtonManager
+from canvas import CanvasManager
 from config import (
     MENU_TITLE_1,
     MENU_TITLE_1_SUB_MENU,
@@ -8,6 +9,7 @@ from config import (
     YOUTUBE_URL_LABEL_GRID,
     YOUTUBE_URL_ENTRY_GRID,
     IMPORT_BUTTON_GRID,
+    SHOW_ANSWER_BUTTON_GRID,
 )
 
 class MenuBarManager:
@@ -19,10 +21,12 @@ class MenuBarManager:
         media_processor (MediaProcessor): An instance of MediaProcessor module.
         word_repo_manager (WordRepoManager): AN instance of WordRepoManager module.
     """
-    def __init__(self, root: Tk, media_processor: MediaProcessor, word_repo_manager: WordRepoManager):
+    def __init__(self, root: Tk, media_processor: MediaProcessor, canvas_manager: CanvasManager, button_manager: ButtonManager):
         self.window = root
         self.media_processor = media_processor
-        self.word_repo_manager = word_repo_manager
+        self.canvas_manager = canvas_manager
+        self.word_repo_manager = self.canvas_manager.word_repo_manager
+        self.button_manager = button_manager
         self.menu_bar = Menu(self.window)
         self.window.config(menu=self.menu_bar)
         self.youtube_icon_img = PhotoImage(file=YOUTUBE_FAVICON_PATH)
@@ -72,7 +76,16 @@ class MenuBarManager:
         print(words_list)
         print(definition_list)
         # # print(type(words_list))
-
-        self.word_repo_manager.words_saver(words_list, definition_list)
+        if self.word_repo_manager.word_repo_length > 0:
+            self.word_repo_manager.words_saver(words_list, definition_list)
+        
+        # This is when there is no words in the word repo and we are importing more words.
+        else:
+            self.word_repo_manager.words_saver(words_list, definition_list)
+            self.word_repo_manager.word_retriver()
+            self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_word, text=self.word_repo_manager.word_text, font=("Arial",30, "bold"))
+            self.canvas_manager.canvas.itemconfig(self.canvas_manager.canvas_definition, text=f"")
+            self.button_manager.showanswer_button.grid(**SHOW_ANSWER_BUTTON_GRID)
+            self.button_manager.showanswer_button.config(state="normal")
 
 

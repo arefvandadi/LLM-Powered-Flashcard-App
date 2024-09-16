@@ -26,11 +26,17 @@ class WordRepoManager:
         self.window = root
         self.word_repo = pd.read_csv(WORDS_REPO_DESTINATION_FOLDER + WORD_REPO_NAME)
         self._update_word_repo_length()
-        self.random_row = random.randint(0, self.word_repo_length-1)
-        self.word_text = self.word_repo.iloc[self.random_row,0]
-        self.definition_text = self.word_repo.iloc[self.random_row,1]
-        self.words_remaining_label = Label(self.window, text=f"Words Remaining: {self.word_repo_length}", font=("Arial", 10, "bold"), bg=BACKGROUND_COLOR, pady=10)
-        self.words_remaining_label.grid(row=0, column=2, columnspan=2)
+        if self.word_repo_length > 0:
+            self.random_row = random.randint(0, self.word_repo_length-1)
+            self.word_text = self.word_repo.iloc[self.random_row,0]
+            self.definition_text = self.word_repo.iloc[self.random_row,1]
+            self.words_remaining_label = Label(self.window, text=f"Words Remaining: {self.word_repo_length}", font=("Arial", 10, "bold"), bg=BACKGROUND_COLOR, pady=10)
+            self.words_remaining_label.grid(row=0, column=2, columnspan=2)      
+        else:
+            self.word_text = None
+            self.definition_text = None
+            self.words_remaining_label = Label(self.window, text=f"Words Remaining: {self.word_repo_length}\nImport More Words to Continue", font=("Arial", 10, "bold"), bg=BACKGROUND_COLOR, pady=10, foreground="red")
+            self.words_remaining_label.grid(row=0, column=2, columnspan=2)
     
 
     def _update_word_repo_length(self):
@@ -46,7 +52,7 @@ class WordRepoManager:
         None
         """
         self._update_word_repo_length()
-        self.words_remaining_label.config(text=f"Words Remaining: {self.word_repo_length}")
+        self.words_remaining_label.config(text=f"Words Remaining: {self.word_repo_length}", foreground="black")
 
     def word_retriver(self):
         """

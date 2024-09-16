@@ -16,11 +16,6 @@ window.config(bg=BACKGROUND_COLOR)
 # Word Repository Manager
 word_repo_manager = WordRepoManager(window)
 
-# Create Manu Bar and Handle Importing Words by Using media_processor and words_saver modules
-menu_bar_manager = MenuBarManager(window, MediaProcessor, word_repo_manager)
-menu_bar_manager.create_menu()
-
-
 # Main Canvas for showing words and meanings in the App
 canvas_manager = CanvasManager(word_repo_manager)
 canvas_manager.create_canvas()
@@ -28,6 +23,10 @@ canvas_manager.create_canvas()
 # Main Buttons and their functionality
 button_manager = ButtonManager(window, canvas_manager, word_repo_manager)
 button_manager.create_buttons()
+
+# Create Manu Bar and Handle Importing Words by Using media_processor and words_saver modules
+menu_bar_manager = MenuBarManager(window, MediaProcessor, canvas_manager, button_manager)
+menu_bar_manager.create_menu()
 
 
 # Changes the closing protocol of the app window. 
