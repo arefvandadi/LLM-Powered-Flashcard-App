@@ -1,14 +1,14 @@
 from tkinter import * 
 from media_processor import MediaProcessor
 from word_repository import WordRepoManager
-
-MENU_TITLE_1 = "Import"
-MENU_TITLE_1_SUB_MENU = "YouTube"
-YOUTUBE_FAVICON_PATH = "./data/images/youtube-icon-2.png"
-
-YOUTUBE_URL_LABEL_GRID = {'row': 0, 'column': 0}
-YOUTUBE_URL_ENTRY_GRID = {'row': 0, 'column': 1}
-IMPORT_BUTTON_GRID = {'row': 0, 'column': 2}
+from config import (
+    MENU_TITLE_1,
+    MENU_TITLE_1_SUB_MENU,
+    YOUTUBE_FAVICON_PATH,
+    YOUTUBE_URL_LABEL_GRID,
+    YOUTUBE_URL_ENTRY_GRID,
+    IMPORT_BUTTON_GRID,
+)
 
 class MenuBarManager:
     """

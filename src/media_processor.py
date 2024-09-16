@@ -4,10 +4,14 @@ import ffmpeg
 from transformers import pipeline
 import textwrap
 from openai import OpenAI
+from config import (
+    DOWNLOADED_VIDEO_NAME,
+    GPT_MODEL
+)
 
-DOWNLOADED_VIDEO_NAME = "downloaded-video"
+# DOWNLOADED_VIDEO_NAME = "downloaded-video"
 
-GPT_MODEL = ["gpt-4o-mini", "gpt-4o"]
+# GPT_MODEL = ["gpt-4o-mini", "gpt-4o"]
 
 class MediaProcessor:
     """

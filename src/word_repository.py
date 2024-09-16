@@ -1,11 +1,11 @@
 from tkinter import *
 import pandas as pd
 import random
-
-BACKGROUND_COLOR = "#B1DDC6"
-
-WORDS_REPO_DESTINATION_FOLDER = "./data/words/"
-WORD_REPO_NAME = "words_to_learn.csv"
+from config import (
+    BACKGROUND_COLOR,
+    WORDS_REPO_DESTINATION_FOLDER,
+    WORD_REPO_NAME
+)
 
 class WordRepoManager:
     """

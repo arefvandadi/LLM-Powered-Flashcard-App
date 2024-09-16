@@ -1,19 +1,18 @@
 from tkinter import *
 from canvas import CanvasManager
 from word_repository import WordRepoManager
+from config import (
+    BACKGROUND_COLOR,
+    SHOW_ANSWER_BUTTON_TEXT,
+    SHOW_ANSWER_BACKGROUND_COLOR,
+    SHOW_ANSWER_BUTTON_GRID,
+    WRONG_BUTTON_PATH,
+    WRONG_BUTTON_GRID,
+    RIGHT_BUTTON_PATH,
+    RIGHT_BUTTON_GRID,
+    HIGHLIGHT_THICKNESS,
+)
 
-BACKGROUND_COLOR = "#B1DDC6"
-
-SHOW_ANSWER_BUTTON_TEXT = "show answer"
-SHOW_ANSWER_BACKGROUND_COLOR = "#00ac00"
-SHOW_ANSWER_BUTTON_GRID = {'row': 2, 'column': 2, 'columnspan': 2}
-
-WRONG_BUTTON_PATH = "./data/images/wrong.png"
-WRONG_BUTTON_GRID = {'row': 2, 'column': 2}
-RIGHT_BUTTON_PATH = "./data/images/right.png"
-RIGHT_BUTTON_GRID = {'row': 2, 'column': 3}
-
-HIGHLIGHT_THICKNESS = 0
 
 class ButtonManager:
     """
@@ -27,8 +26,8 @@ class ButtonManager:
         self.window = root
         self.canvas_manager = canvas_manager
         self.word_repo_manager = word_repo_manager
-        self.wrong_img = PhotoImage(file="./data/images/wrong.png")
-        self.right_img = PhotoImage(file="./data/images/right.png")
+        self.wrong_img = PhotoImage(file=WRONG_BUTTON_PATH)
+        self.right_img = PhotoImage(file=RIGHT_BUTTON_PATH)
     
     def create_buttons(self):
         # Wrong Button

@@ -1,26 +1,21 @@
 from tkinter import Canvas, PhotoImage
 from word_repository import WordRepoManager
-
-CARD_FRONT_IMAGE_PATH = "./data/images/card_front.png"
-CARD_BACK_IMAGE_PATH = "./data/images/card_back.png"
-
-CANVAS_WIDTH = 800
-CANVAS_HEIGHT = 526
-BACKGROUND_COLOR = "#B1DDC6"
-CANVAS_Highlight_Thickness = 0
-
-CANVAS_IMAGE_SIZE = (400, 263)
-
-CANVAS_DEFINITION_POSITION = (400, 150)
-CANVAS_DEFINITION_FONT = ("Arial",15)
-CANVAS_DEFINITION_WIDTH = 500
-
-CANVAS_WORD_POSITION = (400, 50)
-CANVAS_WORD_FONT = ("Arial",30, "bold")
-CANVAS_WORD_WIDTH = 500
-
-CANVAS_GRID_POSITION = {'row': 1, 'column': 0, 'columnspan': 6}
-
+from config import (
+    CARD_FRONT_IMAGE_PATH,
+    CARD_BACK_IMAGE_PATH,
+    CANVAS_WIDTH,
+    CANVAS_HEIGHT,
+    BACKGROUND_COLOR,
+    CANVAS_Highlight_Thickness,
+    CANVAS_IMAGE_SIZE,
+    CANVAS_DEFINITION_POSITION,
+    CANVAS_DEFINITION_FONT,
+    CANVAS_DEFINITION_WIDTH,
+    CANVAS_WORD_POSITION,
+    CANVAS_WORD_FONT,
+    CANVAS_WORD_WIDTH,
+    CANVAS_GRID_POSITION,
+)
 
 class CanvasManager:
     """
