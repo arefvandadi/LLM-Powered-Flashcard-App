@@ -6,7 +6,8 @@ import textwrap
 from openai import OpenAI
 from app_config import (
     DOWNLOADED_VIDEO_NAME,
-    GPT_MODEL
+    GPT_MODEL,
+    OPENAI_API_KEY_ENV_VARIABLE,
 )
 
 # DOWNLOADED_VIDEO_NAME = "downloaded-video"
@@ -166,7 +167,7 @@ class MediaProcessor:
         list
             A python list of important words
         """
-        api_key = os.getenv("OPENAI_API_KEY")
+        api_key = os.getenv(OPENAI_API_KEY_ENV_VARIABLE)
         client = OpenAI(api_key=api_key)
         completion = client.chat.completions.create(
         model=self.gpt_model,
@@ -214,7 +215,7 @@ class MediaProcessor:
             A python list of definitions of the words
         """
         self.gpt_definition_prompt_template = self._generate_gpt_definition_prompt_template()
-        api_key = os.getenv("OPENAI_API_KEY")
+        api_key = os.getenv(OPENAI_API_KEY_ENV_VARIABLE)
         client = OpenAI(api_key=api_key)
         completion = client.chat.completions.create(
         model=self.gpt_model,

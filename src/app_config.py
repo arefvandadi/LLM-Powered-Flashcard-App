@@ -1,4 +1,8 @@
+OPENAI_API_KEY_ENV_VARIABLE = "OPENAI_API_KEY"
+
+###########################################
 BACKGROUND_COLOR = "#B1DDC6"
+
 #############################################
 
 SHOW_ANSWER_BUTTON_TEXT = "show answer"
