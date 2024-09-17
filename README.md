@@ -1,9 +1,25 @@
-The project focuses on creating a Flashcard App that can use LLM to expand the words in the flashcards from videos on youtube or articles online selected by the user.
+# Overview
+The project focuses on creating a Flashcard App that can use LLM to extract words from youtube videos on youtube and articles online selected by the user.
 
-# Installing FFmpeg on Windows:
-You can find the instruction in this link: https://phoenixnap.com/kb/ffmpeg-windows
-1. Download FFmpeg package (ffmpeg-git-full.7z) from HERE: https://www.gyan.dev/ffmpeg/builds/
-2. unzip the file and rename the folder to ffmpeg
-3. Place the folder in the root of C drive
-4. Add the bin folder in ffmpeg folder to the system path as "C:\ffmpeg\bin"
+
+# Requirements
+Install packages in requirements.txt. Use the following code in terminal:
+
+pip install -r requirements.txt
+
+
+Also, FFmpeg need to be installed on your operating system. You can find FFmpeg package [HERE](https://www.gyan.dev/ffmpeg/builds/)
+- Installation Instructions for Windows:[Click Here](https://phoenixnap.com/kb/ffmpeg-windows)
+- Installation Instructions for Mac:[Click Here](https://phoenixnap.com/kb/ffmpeg-mac)
+
+
+# Configuration
+You need to provide an OpenAI API Key for the project to work. OPENAI API is needed for the word extraction. You can do wither o the following two approaches to set the key in your system:
+- **Environment Variable**: You can set the `OPENAI_API_KEY` environment variable in your system.
+- **.env File**: Alternatively, you can create a `.env` file in the root directory of your project with the following content: OPENAI_API_KEY=your_openai_api_key_here
+
+
+
+
+
 

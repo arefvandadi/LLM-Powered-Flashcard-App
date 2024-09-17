@@ -4,6 +4,7 @@ import ffmpeg
 from transformers import pipeline
 import textwrap
 from openai import OpenAI
+from dotenv import load_dotenv
 from app_config import (
     DOWNLOADED_VIDEO_NAME,
     GPT_MODEL,
@@ -167,6 +168,8 @@ class MediaProcessor:
         list
             A python list of important words
         """
+        if not os.getenv(OPENAI_API_KEY_ENV_VARIABLE):
+            load_dotenv()
         api_key = os.getenv(OPENAI_API_KEY_ENV_VARIABLE)
         client = OpenAI(api_key=api_key)
         completion = client.chat.completions.create(
@@ -215,6 +218,8 @@ class MediaProcessor:
             A python list of definitions of the words
         """
         self.gpt_definition_prompt_template = self._generate_gpt_definition_prompt_template()
+        if not os.getenv(OPENAI_API_KEY_ENV_VARIABLE):
+            load_dotenv()
         api_key = os.getenv(OPENAI_API_KEY_ENV_VARIABLE)
         client = OpenAI(api_key=api_key)
         completion = client.chat.completions.create(
