@@ -29,7 +29,10 @@ class ButtonManager:
         self.wrong_img = PhotoImage(file=WRONG_BUTTON_PATH)
         self.right_img = PhotoImage(file=RIGHT_BUTTON_PATH)
     
-    def create_buttons(self):
+    def create_buttons(self) -> None:
+        """
+        Creates all buttons needed for GUI
+        """
         # Wrong Button
         self.wrong_button = Button(self.window, 
                               image=self.wrong_img, 
@@ -69,7 +72,10 @@ class ButtonManager:
 
 
     ###################### Wrong Button Functionality ######################
-    def wrong_button_functionality(self, event=None):
+    def wrong_button_functionality(self, event=None) -> None:
+        """
+        Sets the functionality of the Wrong button.
+        """
 
         # Ask CanvasManager's word_retriever method to pick a new word from word_repo
         self.word_repo_manager.word_retriver()
@@ -92,7 +98,10 @@ class ButtonManager:
 
 
     ###################### Right Button Functionality ######################
-    def right_button_functionality(self, event=None):
+    def right_button_functionality(self, event=None) -> None:
+        """
+        Sets the functionality of the Right button.
+        """
         
         # Remove the correctly guessed word from the word repo
         self.word_repo_manager.word_remover()
@@ -137,7 +146,10 @@ class ButtonManager:
             # self.window.bind("<space>", self.show_answer)
     
     ###################### Show Answer Function ######################
-    def show_answer(self, event=None):
+    def show_answer(self, event=None) -> None:
+        """
+        Sets the functionality of the Show Answer button.
+        """
         # Hide the Show Answer Button
         self.showanswer_button.grid_forget()
 

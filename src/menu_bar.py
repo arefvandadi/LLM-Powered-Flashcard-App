@@ -19,7 +19,7 @@ class MenuBarManager:
     Attributes:
         window (Tk): An instance of Tk class. the main window of the app.
         media_processor (MediaProcessor): An instance of MediaProcessor module.
-        word_repo_manager (WordRepoManager): AN instance of WordRepoManager module.
+        word_repo_manager (WordRepoManager): An instance of WordRepoManager module.
     """
     def __init__(self, root: Tk, media_processor: MediaProcessor, canvas_manager: CanvasManager, button_manager: ButtonManager):
         self.window = root
@@ -31,7 +31,7 @@ class MenuBarManager:
         self.window.config(menu=self.menu_bar)
         self.youtube_icon_img = PhotoImage(file=YOUTUBE_FAVICON_PATH)
         
-    def create_menu(self):
+    def create_menu(self) -> None:
         import_menu = Menu(self.menu_bar, tearoff=0)
         self.menu_bar.add_cascade(label=MENU_TITLE_1, menu=import_menu)
 
@@ -42,7 +42,7 @@ class MenuBarManager:
     
 
     ###################### Youtube Importing Menu #######################
-    def youtube_import_from_menu(self):
+    def youtube_import_from_menu(self) -> None:
         """
         Opens a new window if Import/YouTube in the menu bar is clicked. 
         Provides a url entry for user to enter the YouTube url.
@@ -69,7 +69,10 @@ class MenuBarManager:
 
 
 
-    def handle_import(self, url_entry):
+    def handle_import(self, url_entry) -> None:
+        """
+        Handles everything needed to set the GUI and extract words upon pressing the import button.
+        """
         youtube_url = url_entry.get()
         youtube_handler = self.media_processor(youtube_url=youtube_url)
         words_list, definition_list = youtube_handler.extract_words_from_youtube_pipeline()

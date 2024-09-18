@@ -39,10 +39,13 @@ class WordRepoManager:
             self.words_remaining_label.grid(row=0, column=2, columnspan=2)
     
 
-    def _update_word_repo_length(self):
+    def _update_word_repo_length(self) -> None:
+        """
+        Helper function to update check the length of the word repository. 
+        """
         self.word_repo_length = self.word_repo.shape[0]
 
-    def _update_words_remaining_label(self):
+    def _update_words_remaining_label(self) -> None:
         """
         Calculates the current number of words in the word repository.
         Updates the Word Remaining label on the GUI.
@@ -54,7 +57,7 @@ class WordRepoManager:
         self._update_word_repo_length()
         self.words_remaining_label.config(text=f"Words Remaining: {self.word_repo_length}", foreground="black")
 
-    def word_retriver(self):
+    def word_retriver(self) -> None:
         """
         Randomly selects a word and its definition from the repository.
         It is tied to Wrong and Right buttons' functions so that a new word is shown upon pressing these two buttons. 
@@ -68,7 +71,7 @@ class WordRepoManager:
         self.word_text = self.word_repo.iloc[self.random_row,0]
         self.definition_text = self.word_repo.iloc[self.random_row,1]
 
-    def word_remover(self):
+    def word_remover(self) -> None:
         """
         Removes a word from the word repository. 
         It is tied to Right button function so the word that is guessed correctly be removed. 
@@ -81,7 +84,7 @@ class WordRepoManager:
         self.word_repo = self.word_repo.reset_index(drop=True)
         self._update_word_repo_length()
     
-    def update_word_repo_csv(self, words_repo_destination_folder=WORDS_REPO_DESTINATION_FOLDER):
+    def update_word_repo_csv(self, words_repo_destination_folder: str =WORDS_REPO_DESTINATION_FOLDER) -> None:
         """
         Updates the word repository when the Flashcard App main window is closed.
 
@@ -92,7 +95,7 @@ class WordRepoManager:
         self.word_repo.to_csv(words_repo_destination_folder + WORD_REPO_NAME, index=False)
         self.window.destroy()
     
-    def words_saver(self, word_list: list, definition_list: list):
+    def words_saver(self, word_list: list[str], definition_list: list[str]) -> None:
         """
         Takes a python list of new words and a python list of corresponding definitions 
         and adds them to the word repository

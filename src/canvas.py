@@ -34,7 +34,10 @@ class CanvasManager:
         self.front_img = PhotoImage(file=CARD_FRONT_IMAGE_PATH)
         # self.back_img = PhotoImage(file="./data/images/card_back.png")
 
-    def create_canvas(self):
+    def create_canvas(self) -> None:
+        """
+        Creates the canvas and sets the word and definition texts.
+        """
         self.canvas = Canvas(width=CANVAS_WIDTH, 
                         height=CANVAS_HEIGHT, 
                         bg=BACKGROUND_COLOR, 
