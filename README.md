@@ -5,7 +5,6 @@ The project focuses on creating a Flashcard App that can use LLM to extract word
 - Uses GPT40-mini to extract the words from the text
 
 
-
 # Requirements
 Install packages in requirements.txt. Use the following code in terminal:
 
@@ -17,7 +16,23 @@ Also, FFmpeg need to be installed on your operating system. You can find FFmpeg 
 - Installation Instructions for Mac:[Click Here](https://phoenixnap.com/kb/ffmpeg-mac)
 
 
-# Configuration
+## Setup Instructions
+To ensure the project works correctly, you need to set the `PYTHONPATH` environment variable to include the `./src` directory. This allows Python to correctly locate the project's modules.
+
+
+### Setting `PYTHONPATH`
+
+1. **For Linux/macOS**:
+   Open a terminal and run the following command:
+   ```bash
+   export PYTHONPATH=./src
+2. **For Windows**
+    Open terminal and run the following command:
+    ```powershell
+    $env:PYTHONPATH="./src"
+
+
+# OPENAI Configuration
 You need to provide an OpenAI API Key for the project to work. OPENAI API is needed for the word extraction. You can do wither o the following two approaches to set the key in your system:
 - **Environment Variable**: You can set the `OPENAI_API_KEY` environment variable in your system.
 - **.env File**: Alternatively, you can create a `.env` file in the root directory of your project with the following content: OPENAI_API_KEY=your_openai_api_key_here
