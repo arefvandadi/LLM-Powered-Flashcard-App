@@ -1,6 +1,6 @@
 from tkinter import Canvas, PhotoImage
-from word_repository import WordRepoManager
-from app_config import (
+from services.word_repository import WordRepoManager
+from config.app_config import (
     CARD_FRONT_IMAGE_PATH,
     CARD_BACK_IMAGE_PATH,
     CANVAS_WIDTH,

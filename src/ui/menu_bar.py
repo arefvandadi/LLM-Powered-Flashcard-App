@@ -1,9 +1,9 @@
 from tkinter import * 
-from media_processor import MediaProcessor
-from buttons import ButtonManager
-from canvas import CanvasManager
-from word_repository import WordRepoManager
-from app_config import (
+from services.media_processor import MediaProcessor
+from ui.buttons import ButtonManager
+from ui.canvas import CanvasManager
+from services.word_repository import WordRepoManager
+from config.app_config import (
     MENU_TITLE_1,
     MENU_TITLE_1_SUB_MENU,
     YOUTUBE_FAVICON_PATH,

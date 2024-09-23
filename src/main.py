@@ -1,10 +1,10 @@
 from tkinter import Tk
-from canvas import CanvasManager
-from buttons import ButtonManager
-from menu_bar import MenuBarManager
-from media_processor import MediaProcessor
-from word_repository import WordRepoManager
-from app_config import BACKGROUND_COLOR
+from ui.canvas import CanvasManager
+from ui.buttons import ButtonManager
+from ui.menu_bar import MenuBarManager
+from services.media_processor import MediaProcessor
+from services.word_repository import WordRepoManager
+from config.app_config import BACKGROUND_COLOR
 
 def main():
 

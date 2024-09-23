@@ -1,13 +1,9 @@
-# Sets up src folder in sys path
-import sys
-sys.path.append("./src")
-
 import pytest
 import pandas as pd
 from unittest.mock import MagicMock
 from tkinter import Tk
-from app_config import *
-from word_repository import WordRepoManager
+from config.app_config import *
+from services.word_repository import WordRepoManager
 
 @pytest.fixture
 def mock_word_repo_manager():

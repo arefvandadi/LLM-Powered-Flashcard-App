@@ -5,7 +5,7 @@ from transformers import pipeline
 import textwrap
 from openai import OpenAI
 from dotenv import load_dotenv
-from app_config import (
+from config.app_config import (
     DOWNLOADED_VIDEO_NAME,
     GPT_MODEL,
     OPENAI_API_KEY_ENV_VARIABLE,
