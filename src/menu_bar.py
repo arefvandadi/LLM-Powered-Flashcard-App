@@ -2,6 +2,7 @@ from tkinter import *
 from media_processor import MediaProcessor
 from buttons import ButtonManager
 from canvas import CanvasManager
+from word_repository import WordRepoManager
 from app_config import (
     MENU_TITLE_1,
     MENU_TITLE_1_SUB_MENU,
@@ -22,14 +23,14 @@ class MenuBarManager:
         word_repo_manager (WordRepoManager): An instance of WordRepoManager module.
     """
     def __init__(self, root: Tk, media_processor: MediaProcessor, canvas_manager: CanvasManager, button_manager: ButtonManager):
-        self.window = root
-        self.media_processor = media_processor
-        self.canvas_manager = canvas_manager
-        self.word_repo_manager = self.canvas_manager.word_repo_manager
-        self.button_manager = button_manager
-        self.menu_bar = Menu(self.window)
+        self.window: Tk = root
+        self.media_processor: MediaProcessor = media_processor
+        self.canvas_manager: CanvasManager = canvas_manager
+        self.word_repo_manager: WordRepoManager = self.canvas_manager.word_repo_manager
+        self.button_manager: ButtonManager = button_manager
+        self.menu_bar: Menu = Menu(self.window)
         self.window.config(menu=self.menu_bar)
-        self.youtube_icon_img = PhotoImage(file=YOUTUBE_FAVICON_PATH)
+        self.youtube_icon_img: PhotoImage = PhotoImage(file=YOUTUBE_FAVICON_PATH)
         
     def create_menu(self) -> None:
         import_menu = Menu(self.menu_bar, tearoff=0)
@@ -69,7 +70,7 @@ class MenuBarManager:
 
 
 
-    def handle_import(self, url_entry) -> None:
+    def handle_import(self, url_entry: Entry) -> None:
         """
         Handles everything needed to set the GUI and extract words upon pressing the import button.
         """

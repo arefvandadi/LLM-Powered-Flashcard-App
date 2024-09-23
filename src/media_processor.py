@@ -43,15 +43,15 @@ class MediaProcessor:
         self.video_destination_folder = video_destination_folder
         self.audio_destination_folder = audio_destination_folder
         self.text_destination_folder = text_destination_folder
-        self.youtube_video_title = None
-        self.original_youtube_url = None
-        self.audio_wav_created = False
-        self.transcription = None
-        self.gpt_prompt_template = None
-        self.gpt_model = GPT_MODEL[0]
-        self.word_list = None
-        self.definition_list = None
-        self.gpt_definition_prompt_template = None
+        self.youtube_video_title: str = None
+        self.original_youtube_url: str = None
+        self.audio_wav_created: bool = False
+        self.transcription: str | None = None
+        self.gpt_prompt_template: str | None = None
+        self.gpt_model: str = GPT_MODEL[0]
+        self.word_list: list | None = None
+        self.definition_list: list | None = None
+        self.gpt_definition_prompt_template: str | None = None
 
 
 

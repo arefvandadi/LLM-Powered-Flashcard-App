@@ -1,5 +1,6 @@
 from tkinter import *
 import pandas as pd
+from pandas import DataFrame
 import random
 from app_config import (
     BACKGROUND_COLOR,
@@ -23,19 +24,22 @@ class WordRepoManager:
     
     """
     def __init__(self, root: Tk):
-        self.window = root
-        self.word_repo = pd.read_csv(WORDS_REPO_DESTINATION_FOLDER + WORD_REPO_NAME)
+        self.window: Tk = root
+        self.word_repo: DataFrame = pd.read_csv(WORDS_REPO_DESTINATION_FOLDER + WORD_REPO_NAME)
+        self.word_repo_length: int = 0  # Initialize the length
         self._update_word_repo_length()
+        # This if statement ensure the "Words Remaining:" label changes to "Import More Words to Continue" 
+        # when all the words in the word repository is reviewed and no more words are left.
         if self.word_repo_length > 0:
-            self.random_row = random.randint(0, self.word_repo_length-1)
-            self.word_text = self.word_repo.iloc[self.random_row,0]
-            self.definition_text = self.word_repo.iloc[self.random_row,1]
-            self.words_remaining_label = Label(self.window, text=f"Words Remaining: {self.word_repo_length}", font=("Arial", 10, "bold"), bg=BACKGROUND_COLOR, pady=10)
+            self.random_row: int = random.randint(0, self.word_repo_length-1)
+            self.word_text: str = self.word_repo.iloc[self.random_row,0]
+            self.definition_text: str = self.word_repo.iloc[self.random_row,1]
+            self.words_remaining_label: Label = Label(self.window, text=f"Words Remaining: {self.word_repo_length}", font=("Arial", 10, "bold"), bg=BACKGROUND_COLOR, pady=10)
             self.words_remaining_label.grid(row=0, column=2, columnspan=2)      
         else:
-            self.word_text = None
-            self.definition_text = None
-            self.words_remaining_label = Label(self.window, text=f"Words Remaining: {self.word_repo_length}\nImport More Words to Continue", font=("Arial", 10, "bold"), bg=BACKGROUND_COLOR, pady=10, foreground="red")
+            self.word_text: str | None = None
+            self.definition_text: str | None = None
+            self.words_remaining_label: Label = Label(self.window, text=f"Words Remaining: {self.word_repo_length}\nImport More Words to Continue", font=("Arial", 10, "bold"), bg=BACKGROUND_COLOR, pady=10, foreground="red")
             self.words_remaining_label.grid(row=0, column=2, columnspan=2)
     
 

@@ -25,13 +25,13 @@ class CanvasManager:
         word_repo_manager (WordRepoManager): Takes an instance of WordRepoManager as an argument. 
     """
     def __init__(self, word_repo_manager: WordRepoManager):
-        self.word_repo_manager = word_repo_manager
-        self.word_text = self.word_repo_manager.word_text
-        self.canvas = None
-        self.canvas_image = None
-        self.canvas_definition = None
-        self.canvas_word = None
-        self.front_img = PhotoImage(file=CARD_FRONT_IMAGE_PATH)
+        self.word_repo_manager: WordRepoManager = word_repo_manager
+        self.word_text: str = self.word_repo_manager.word_text
+        self.canvas: Canvas | None = None
+        self.canvas_image: int | None = None
+        self.canvas_definition: int | None = None
+        self.canvas_word: int | None= None
+        self.front_img: PhotoImage = PhotoImage(file=CARD_FRONT_IMAGE_PATH)
         # self.back_img = PhotoImage(file="./data/images/card_back.png")
 
     def create_canvas(self) -> None:
