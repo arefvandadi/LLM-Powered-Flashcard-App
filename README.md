@@ -1,8 +1,8 @@
 # Overview
 The project focuses on creating a Flashcard App that can use LLM to extract words from youtube videos selected by the user. The app uses the following to extract the words from the video:
-- Uses FFmpeg library to extract audio from videos
-- Uses OPenAI Whisper Small ASR model to create a transcription from the audio
-- Uses GPT40-mini to extract the words from the text
+- Uses **FFmpeg library** to extract audio from videos
+- Uses **OpenAI Whisper Small** ASR model from Hugging Face to create a transcription from the audio
+- Uses **GPT4o mini** to extract the words from the text
 
 
 # Requirements
